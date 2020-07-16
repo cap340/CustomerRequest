@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="cap" sortOrder="400" translate="label">
+			<label>Cap340</label>
+		</tab>
+		<section id="cap_customer_request" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>Request</label>
+			<tab>cap</tab>
+			<resource>Cap_CustomerRequest::config_cap_customer_request</resource>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>General Configuration</label>
+				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enable Module</label>
+					<comment/>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+			</group>
+			<group id="stock" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
+				<label>Stock Request</label>
+				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enable</label>
+					<comment>Enable Stock Request</comment>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="cap_customer_request/general/enable">1</field>
+					</depends>
+				</field>
+				<field id="attributes_sorting_order" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Attributes Sorting Order Inside of Popup</label>
+					<comment>comma separated attribute codes</comment>
+					<depends>
+						<field id="cap_customer_request/stock/enable">1</field>
+					</depends>
+				</field>
+				<field id="default_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Default Message</label>
+					<comment><![CDATA[Default form message. <em>Optional<em>]]></comment>
+					<depends>
+						<field id="cap_customer_request/stock/enable">1</field>
+					</depends>
+				</field>
+			</group>
+			<group id="rma" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label">
+				<label>Return Request</label>
+				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enable</label>
+					<comment>Enable Return Request</comment>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="cap_customer_request/general/enable">1</field>
+					</depends>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

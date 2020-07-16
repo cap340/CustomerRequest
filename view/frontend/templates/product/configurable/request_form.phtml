@@ -1,0 +1,175 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Modal form content template
+ *
+ * @var $block \Cap\CustomerRequest\Block\Product\View
+ */
+?>
+
+<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
+
+<div data-role="stock-request-modal-content">
+    <form id="stock-request-form"
+          action="<?php echo $block->getFormAction() ?>"
+          method="post"
+          data-mage-init='{"validation":{}}'
+          data-role="stock-request-form">
+        <fieldset class="fieldset create stock-request">
+            <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey();?>">
+            <legend class="legend">
+                <span><?php echo __('Request: ') ?></span>
+                <strong><?php /* @escapeNotVerified */ echo $block->getProduct()->getName() ?></strong>
+            </legend>
+
+            <?php // Customer Name  ?>
+            <div class="field name required">
+                <label class="label" for="customerName"><?php /* @escapeNotVerified */ echo __('Your Name'); ?></label>
+                <input type="text" name="customerName" value="" data-validate="{required:true}"/>
+            </div>
+
+            <?php // Customer Email  ?>
+            <div class="field email required">
+                <label class="label" for="customerEmail"><?php /* @escapeNotVerified */ echo __('Your Email') ?></label>
+                <input type="text" name="customerEmail" value="" data-validate="{required:true}"/>
+            </div>
+
+            <?php // Product Options ?>
+            <?php $orderIndex = 1 ?>
+            <?php foreach ($this->getConfigurableAttributes() as $attribute): ?>
+                <div class="field option required">
+                    <label class="label">
+                        <span><?php echo $attribute->getFrontendLabel() ?></span>
+                    </label>
+                    <div class="control">
+                        <select title="<?php echo $attribute->getFrontendLabel() ?>"
+                                id="stock-request-<?php echo $attribute->getId() ?>"
+                                data-role="stock-request-option"
+                                data-stock-request-order="<?php echo $orderIndex ?>"
+                                required="required"
+                                data-validate="{required:true}"
+                                autocomplete="off"
+                                aria-required="true">
+                            <option value><?php echo __('Please select an option') ?></option>
+                            <?php foreach ($this->getConfigurableAttributeOptions($attribute) as $optionId => $option): ?>
+                                <option value='<?php echo json_encode($option['product_ids']) ?>'
+                                        data-product-ids='<?php echo json_encode($option['product_ids']) ?>'>
+                                    <?php echo $option['label'] ?>
+                                </option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+                <?php $orderIndex++ ?>
+            <?php endforeach ?>
+
+            <?php // Product Id from Js  ?>
+            <input type="hidden" name="productId" value="">
+
+            <?php // Message  ?>
+            <div class="field message-text required">
+                <label class="label" for="message"><?php /* @escapeNotVerified */ echo __('Your Message'); ?></label>
+                <div class="control">
+                <textarea name="message"
+                          rows="2"
+                          data-validate="{
+                          required:true,
+                          'min-words':3
+                          }"><?php echo $helper->getConfigStockMessage(); ?></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
+        </fieldset>
+    </form>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'underscore',
+        'mage/storage',
+        'Magento_Ui/js/modal/modal',
+        'Magento_Ui/js/modal/alert'
+    ], function ($, _, storage, modal, alert) {
+        var formPopup = $('[data-role="stock-request-modal-content"]').modal(getPopupOptions()),
+            form = $('[data-role="stock-request-form"]'),
+            optionSelects = $('[data-role="stock-request-option"]');
+
+        function getPopupOptions() {
+            return {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                modalClass: 'cap-request-modal',
+                title: '',
+                buttons: [{
+                    text: '<?php echo __('Submit') ?>',
+                    'class': 'action primary',
+                    click: function () {
+                        form.find('button[type="submit"]').click();
+                    }
+                }]
+            }
+        }
+
+        function normalizeOptionsSelect(targetSelects, dependedSelects) {
+            var selectedOptions = targetSelects.find('option:selected'),
+                selectedProductIds = _.union.apply(_, selectedOptions.toArray().map(function (el) { return $(el).data('productIds') }));
+
+            dependedSelects.each(function (i, el) {
+                var dependedSelect = $(el);
+
+                dependedSelect.find('option').show().each(function (i, el) {
+                    var option = $(el),
+                        dependedOptionProductIds = option.data('productIds');
+
+                    if (!option.val() || _.intersection(dependedOptionProductIds, selectedProductIds).length) {
+                        option.show().prop('disabled', false);
+                    } else {
+                        option.hide().prop('disabled', true);
+
+                        if (option.is(':selected')) {
+                            dependedSelect.val('');
+                        }
+                    }
+                });
+            });
+        }
+
+        $(document).on('click', '[data-role="stock-request-modal-link"]', function () {
+            formPopup.modal('openModal');
+        });
+
+        form.on('change', '[data-role="stock-request-option"]', function (ev) {
+            var targetOptionSelect = $(ev.target),
+                targetOptionSelectOrder = targetOptionSelect.data('stock-request-order');
+
+            normalizeOptionsSelect(
+                optionSelects.toArray()
+                    .filter(function (el) { return $(el).data('stock-request-order') <= targetOptionSelectOrder })
+                    .reduce(function (collection, el) { return collection.add($(el)) }, $()),
+                optionSelects.toArray()
+                    .filter(function (el) { return targetOptionSelectOrder < $(el).data('stock-request-order') })
+                    .reduce(function (collection, el) { return collection.add($(el)) }, $()),
+            );
+
+            // Send selected productId in form[name="productId"]
+            var selectedOptionsProducts = optionSelects.find('option:selected').toArray()
+                    .map(function (el) {
+                        return $(el).data('productIds');
+                    }),
+                selectedProduct = _.intersection.apply(_, selectedOptionsProducts)[0];
+
+            form.find('[name="productId"]').val(selectedProduct);
+        });
+    });
+</script>

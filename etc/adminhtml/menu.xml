@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Cap_CustomerRequest::head" module="Cap_CustomerRequest" parent="Magento_Catalog::catalog" resource="Cap_CustomerRequest::head" sortOrder="9999" title="Cap Request"/>
+		<add id="Cap_CustomerRequest::cap_customer_request_rma" action="cap_customer_request/rma/index" module="Cap_CustomerRequest" parent="Cap_CustomerRequest::head" resource="Cap_CustomerRequest::cap_customer_request_rma" sortOrder="9999" title="Return Request"/>
+		<add id="Cap_CustomerRequest::cap_customer_request_stock" action="cap_customer_request/stock/index" module="Cap_CustomerRequest" parent="Cap_CustomerRequest::head" resource="Cap_CustomerRequest::cap_customer_request_stock" sortOrder="9999" title="Stock Request"/>
+	</menu>
+</config>
