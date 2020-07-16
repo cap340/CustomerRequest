@@ -1,4 +1,4 @@
-<?php /** @noinspection DuplicatedCode */
+<?php
 
 /**
  * Copyright © Magento, Inc. All rights reserved.

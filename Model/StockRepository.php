@@ -20,11 +20,6 @@ class StockRepository implements \Cap\CustomerRequest\Api\StockRepositoryInterfa
     protected $stockFactory;
 
     /**
-     * @var ResourceStock\CollectionFactory
-     */
-    protected $stockCollectionFactory;
-
-    /**
      * @var \Cap\CustomerRequest\Api\Data\StockSearchResultsInterfaceFactory
      */
     protected $searchResultsFactory;
@@ -48,6 +43,11 @@ class StockRepository implements \Cap\CustomerRequest\Api\StockRepositoryInterfa
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
+
+    /**
+     * @var ResourceModel\Stock\CollectionFactory
+     */
+    protected $stockCollectionFactory;
 
     public function __construct(
         \Cap\CustomerRequest\Model\ResourceModel\Stock $resource,

@@ -4,6 +4,7 @@
   "description": "N/A",
   "type": "magento2-module",
   "require": {
+    "ext-json": "*",
     "magento/framework": "*"
   },
   "license": [

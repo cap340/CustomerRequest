@@ -125,6 +125,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * @param null $height
      * @return string
      * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \Exception
      */
     public function saveProductImage($imagePath, $width = null, $height = null)
     {
