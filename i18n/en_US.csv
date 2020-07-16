@@ -19,22 +19,18 @@ Cap,Cap
 "Stock Requests","Stock Requests"
 "We deleted %1 request(s).","We deleted %1 request(s)."
 "You're request have been submitted.","You're request have been submitted."
-"Could not save the Rma Request: %1","Could not save the Rma Request: %1"
-"Could not delete the Rma Request: %1","Could not delete the Rma Request: %1"
-"Rma Request with id ""%1"" does not exist.","Rma Request with id ""%1"" does not exist."
+"Could not save the request: %1","Could not save the request: %1"
+"Could not delete the request: %1","Could not delete the request: %1"
+"Request %1 does not exist.","Request %1 does not exist."
 Pending,Pending
 Processing,Processing
 Complete,Complete
 Closed,Closed
-"Could not save the Stock Request: %1","Could not save the Stock Request: %1"
-"Could not delete the Stock Request: %1","Could not delete the Stock Request: %1"
-"Stock Request with id ""%1"" does not exist.","Stock Request with id ""%1"" does not exist."
 Edit,Edit
 Delete,Delete
 "Delete ""${ $.$data.entity_id }""","Delete ""${ $.$data.entity_id }"""
-"Are you sure you wan't to delete a ""${ $.$data.entity_id }"" record?","Are you sure you wan't to delete a ""${ $.$data.entity_id }"" record?"
-"Delete Request #${ $.$data.entity_id }","Delete Request #${ $.$data.entity_id }"
 "Are you sure you wan't to delete the request #${ $.$data.entity_id } ?","Are you sure you wan't to delete the request #${ $.$data.entity_id } ?"
+"Delete Request #${ $.$data.entity_id }","Delete Request #${ $.$data.entity_id }"
 "Request: ","Request: "
 "Your Name","Your Name"
 "Your Email","Your Email"
@@ -45,7 +41,7 @@ Cap340,Cap340
 Request,Request
 "General Configuration","General Configuration"
 "Enable Module","Enable Module"
-"Stock CustomerRequest","Stock CustomerRequest"
+"Stock Customer Request","Stock Customer Request"
 Enable.,Enable.
 "Attributes Sorting Order.","Attributes Sorting Order."
 "comma separated attribute codes. <em>(like: color,size)<em>","comma separated attribute codes. <em>(like: color,size)<em>"

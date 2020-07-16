@@ -23,7 +23,7 @@
 				</field>
 			</group>
 			<group id="stock" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
-				<label>Stock CustomerRequest</label>
+				<label>Stock Customer Request</label>
 				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
 					<label>Enable.</label>
 					<comment>Enable Customer Stock Request.</comment>

@@ -1,1 +1,73 @@
+Back,Retour
+"Delete Request","Supprimer la demande"
+"Are you sure you want to do this?","Etes sûr de vouloir faire ça?"
+"Save and Continue Edit","Sauvegarder et contineur d'étider"
+"Save Request","Sauvegarder la demande"
 "Can't find your %1 ?","Vous ne trouvez pas votre %1 ?"
+Cap,Cap
+"Rma Request","Demande de retour"
+"You deleted the request #%1.","Vous avez supprimé la demande #%1."
+"We can't find a request to delete.","Nous ne trouvons aucune demande à supprimer."
+"This request no longer exists.","Cette demande n'existe plus."
+"Edit Request","Editer la demande"
+"New Request","Nouvelle demande"
+"Rma Requests","Demandes de retour"
+"Please correct the data sent.","Veuiller corriger les données."
+"You saved the request.","Vous avez sauvegardé la demande."
+"Something went wrong while saving the request.","Une erreur est apparue en sauvegardant la demande."
+"Stock Request","Demande de stock"
+"Stock Requests","Demandes de stock"
+"We deleted %1 request(s).","Nous avons supprimé %1 demande(s)."
+"You're request have been submitted.","Vous demande à bien été transmise."
+"Could not save the request: %1","Impossible de sauvegarder la demande: %1"
+"Could not delete the request: %1","Impossible de supprimer la demande: %1"
+"Request %1 does not exist.","La demande ""%1"" n'existe pas."
+Pending,En attente
+Processing,En cours
+Complete,Terminée
+Closed,Fermée
+Edit,Editer
+Delete,Supprimer
+"Delete ""${ $.$data.entity_id }""","Supprimer ""${ $.$data.entity_id }"""
+"Are you sure you wan't to delete the request #${ $.$data.entity_id } ?","Etes vous sûr de vouloir supprimer ""${ $.$data.entity_id }""?"
+"Delete Request #${ $.$data.entity_id }","Supprimer la demande #${ $.$data.entity_id }"
+"Request: ","Demande: "
+"Your Name","Votre Nom"
+"Your Email","Votre Email"
+"Please select an option","Veuillez choisir une option"
+"Your Message","Votre Message"
+Submit,Envoyer
+Cap340,Cap340
+Request,Demande
+"General Configuration","Configuration générale"
+"Enable Module","Activer l'extension"
+"Stock Customer Request","Demande de stock"
+Enable.,Activée.
+"Attributes Sorting Order.","Attributes Sorting Order."
+"comma separated attribute codes. <em>(like: color,size)<em>","comma separated attribute codes. <em>(like: color,size)<em>"
+"Default Message.","Default Message."
+"Return Customer Request","Demande de retour"
+"General Information","Informations générales"
+product_id,product_id
+order_id,order_id
+customer_id,customer_id
+"Add new Rma Request","Ajouter une demande de retour"
+ID,ID
+product_sku,product_sku
+product_name,product_name
+customer_name,customer_name
+customer_email,customer_email
+status,status
+message,message
+created_at,created_at
+updated_at,updated_at
+"Add new Stock Request","Ajouter une demande de stock"
+"Product Id","Id de produit"
+Thumbnail,Miniature
+"Product Sku","Référence du produit"
+"Product Name","Nom du produit"
+"Customer Name","Nom du client"
+"Customer Email","Email du client"
+Status,Status
+"Created At","Créé le"
+"Updated At","Mise à jour le"

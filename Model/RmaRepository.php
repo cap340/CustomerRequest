@@ -94,7 +94,7 @@ class RmaRepository implements \Cap\CustomerRequest\Api\RmaRepositoryInterface
             $this->resource->save($rma);
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotSaveException(__(
-                'Could not save the Rma Request: %1',
+                'Could not save the request: %1',
                 $exception->getMessage()
             ));
         }
@@ -159,7 +159,7 @@ class RmaRepository implements \Cap\CustomerRequest\Api\RmaRepositoryInterface
             $this->resource->delete($rma);
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotDeleteException(__(
-                'Could not delete the Rma Request: %1',
+                'Could not delete the request: %1',
                 $exception->getMessage()
             ));
         }
@@ -175,7 +175,7 @@ class RmaRepository implements \Cap\CustomerRequest\Api\RmaRepositoryInterface
         $this->resource->load($rma, $id);
         if (!$rma->getId()) {
             throw new \Magento\Framework\Exception\NoSuchEntityException(
-                __('Rma Request with id "%1" does not exist.', $id)
+                __('Request %1 does not exist.', $id)
             );
         }
         return $rma;

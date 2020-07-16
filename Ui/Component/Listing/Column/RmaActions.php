@@ -65,7 +65,9 @@ class RmaActions extends \Magento\Ui\Component\Listing\Columns\Column
                             'label' => __('Delete'),
                             'confirm' => [
                                 'title' => __('Delete "${ $.$data.entity_id }"'),
-                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.entity_id }" record?')
+                                'message' => __(
+                                    'Are you sure you wan\'t to delete the request #${ $.$data.entity_id } ?'
+                                )
                             ]
                         ]
                     ];

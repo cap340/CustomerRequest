@@ -82,7 +82,7 @@ class StockRepository implements \Cap\CustomerRequest\Api\StockRepositoryInterfa
             $this->resource->save($stock);
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotSaveException(__(
-                'Could not save the Stock Request: %1',
+                'Could not save the request: %1',
                 $exception->getMessage()
             ));
         }
@@ -148,7 +148,7 @@ class StockRepository implements \Cap\CustomerRequest\Api\StockRepositoryInterfa
             $this->resource->delete($stock);
         } catch (\Exception $exception) {
             throw new \Magento\Framework\Exception\CouldNotDeleteException(__(
-                'Could not delete the Stock Request: %1',
+                'Could not delete the request: %1',
                 $exception->getMessage()
             ));
         }
@@ -164,7 +164,7 @@ class StockRepository implements \Cap\CustomerRequest\Api\StockRepositoryInterfa
         $this->resource->load($stock, $id);
         if (!$stock->getId()) {
             throw new \Magento\Framework\Exception\NoSuchEntityException(
-                __('Stock Request with id "%1" does not exist.', $id)
+                __('Request %1 does not exist.', $id)
             );
         }
         return $stock;
