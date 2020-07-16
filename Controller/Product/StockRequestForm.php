@@ -15,19 +15,35 @@ class StockRequestForm extends \Magento\Framework\App\Action\Action
     protected $requestStockFactory;
 
     /**
+     * @var \Cap\CustomerRequest\Helper\Email
+     */
+    protected $emailSender;
+
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
+     */
+    protected $dateTime;
+
+    /**
      * StockRequestForm constructor.
      *
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Cap\CustomerRequest\Helper\Data $helper
      * @param \Cap\CustomerRequest\Model\StockFactory $requestStockFactory
+     * @param \Cap\CustomerRequest\Helper\Email $emailSender
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Cap\CustomerRequest\Helper\Data $helper,
-        \Cap\CustomerRequest\Model\StockFactory $requestStockFactory
+        \Cap\CustomerRequest\Model\StockFactory $requestStockFactory,
+        \Cap\CustomerRequest\Helper\Email $emailSender,
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
     ) {
         $this->helper = $helper;
         $this->requestStockFactory = $requestStockFactory;
+        $this->emailSender = $emailSender;
+        $this->dateTime = $dateTime;
         parent::__construct($context);
     }
 
@@ -61,7 +77,16 @@ class StockRequestForm extends \Magento\Framework\App\Action\Action
 
                 $this->helper->saveProductImage($product->getImage(), 200);
 
-                // TODO: EMAIL SENDER FROM HELPER
+                $emailData = [
+                    'requestId' => $model->getEntityId(),
+                    'customerName' => $post['customerName'],
+                    'customerEmail' => $post['customerEmail'],
+                    'message' => $post['message'],
+                    'productSku' => $product->getSku(),
+                    'productName' => $product->getName(),
+                    'createdAt' => $this->dateTime->gmtDate(),
+                ];
+                $this->emailSender->sendEmailAdmin($emailData);
 
                 $this->messageManager->addSuccessMessage(
                     __('You\'re request have been submitted.')

@@ -58,6 +58,32 @@
 					</depends>
 				</field>
 			</group>
+			<group id="email" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label">
+				<label>Email Configuration.</label>
+				<field id="admin" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Admin Notify.</label>
+					<validate>validate-comma-separated-emails</validate>
+					<comment><![CDATA[Admin emails receiving notifications. <em>(Comma-separated)<em>]]></comment>
+					<depends>
+						<field id="cap_customer_request/general/enable">1</field>
+					</depends>
+				</field>
+				<field id="sender" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Admin Sender.</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+					<validate>required-entry</validate>
+					<depends>
+						<field id="cap_customer_request/general/enable">1</field>
+					</depends>
+				</field>
+				<field id="template" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Admin Notify Template</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+						<field id="cap_customer_request/general/enable">1</field>
+					</depends>
+				</field>
+			</group>
 		</section>
 	</system>
 </config>
