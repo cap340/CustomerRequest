@@ -50,6 +50,30 @@
 		</argument>
 		<bookmark name="bookmarks"/>
 		<columnsControls name="columns_controls"/>
+		<exportButton name="export_button"/>
+		<filterSearch name="fulltext">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="provider" xsi:type="string">cap_customer_request_stock_listing.cap_customer_request_stock_grid_data_source</item>
+					<item name="chipsProvider" xsi:type="string">cap_customer_request_stock_listing.cap_customer_request_stock_listing.listing_top.listing_filters_chips</item>
+					<item name="storageConfig" xsi:type="array">
+						<item name="provider" xsi:type="string">cap_customer_request_stock_listing.cap_customer_request_stock_listing.listing_top.bookmarks</item>
+						<item name="namespace" xsi:type="string">current.search</item>
+					</item>
+				</item>
+			</argument>
+		</filterSearch>
+		<massaction name="listing_massaction">
+			<action name="delete">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="type" xsi:type="string">delete</item>
+						<item name="label" xsi:type="string" translate="true">Delete</item>
+						<item name="url" xsi:type="url" path="cap_customer_request/stock/massDelete"/>
+					</item>
+				</argument>
+			</action>
+		</massaction>
 		<filters name="listing_filters"/>
 		<paging name="listing_paging"/>
 	</listingToolbar>
