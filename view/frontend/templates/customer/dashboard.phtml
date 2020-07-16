@@ -27,12 +27,21 @@
         <?php /** @var \Magento\Sales\Model\Order $order */ ?>
         <?php foreach ($block->getOrdersCanRequest() as $order): ?>
             <?php $order = $block->getLoadOrderById($order->getId()); ?>
+            <h3><?php echo $order->getIncrementId(); ?></h3>
             <?php $orderItems = $order->getAllVisibleItems(); ?>
             <?php foreach ($orderItems as $item): ?>
                 <?php if ($item->getProductType() == 'configurable'): ?>
                     <?php $sku = $item->getProductOptions()['simple_sku']; ?>
                     <?php $product = $block->getLoadProductBySku($sku); ?>
-                    <?php echo $product->getName(); ?>
+                    <div>
+                        <input type="checkbox"
+                               id="order-item-<?php echo $product->getId(); ?>"
+                               name="order-item-<?php echo $product->getId(); ?>">
+                        <label for="order-item-<?php echo $product->getId(); ?>">
+                            <?php echo $product->getName(); ?>
+                            <?php // TODO: ECHO PRODUCT OPTIONS (SIZE OR COLOR) ?>
+                        </label>
+                    </div>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endforeach; ?>

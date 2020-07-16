@@ -87,6 +87,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     public function getOrdersCanRequest()
     {
         $customerId = $this->customerSession->getCustomer()->getId();
+        // TODO: ALLOWED ORDERS
 //        $options = $this->helper->getConfigAllowedOrders();
 //        $options = explode(',', $options);
 
