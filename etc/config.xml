@@ -9,9 +9,18 @@
 	<default>
 		<cap_customer_request>
 			<stock>
-				<enable/>
+				<default_message><![CDATA[I would like to be contacted to buy this product...]]></default_message>
 				<attributes_sorting_order><![CDATA[color,size]]></attributes_sorting_order>
 			</stock>
 		</cap_customer_request>
 	</default>
+	<stores>
+		<fr>
+			<cap_customer_request>
+				<stock>
+					<default_message><![CDATA[Je souhaite être contacté pour acheter ce produit...]]></default_message>
+				</stock>
+			</cap_customer_request>
+		</fr>
+	</stores>
 </config>

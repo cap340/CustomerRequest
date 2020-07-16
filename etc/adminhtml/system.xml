@@ -18,29 +18,29 @@
 				<label>General Configuration</label>
 				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
 					<label>Enable Module</label>
-					<comment/>
+					<comment>Enable Customer Request Module.</comment>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 			</group>
 			<group id="stock" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
-				<label>Stock Request</label>
+				<label>Stock CustomerRequest</label>
 				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
-					<label>Enable</label>
-					<comment>Enable Stock Request</comment>
+					<label>Enable.</label>
+					<comment>Enable Customer Stock Request.</comment>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<depends>
 						<field id="cap_customer_request/general/enable">1</field>
 					</depends>
 				</field>
 				<field id="attributes_sorting_order" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Attributes Sorting Order Inside of Popup</label>
-					<comment>comma separated attribute codes</comment>
+					<label>Attributes Sorting Order.</label>
+					<comment><![CDATA[comma separated attribute codes. <em>(like: color,size)<em>]]></comment>
 					<depends>
 						<field id="cap_customer_request/stock/enable">1</field>
 					</depends>
 				</field>
 				<field id="default_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Default Message</label>
+					<label>Default Message.</label>
 					<comment><![CDATA[Default form message. <em>Optional<em>]]></comment>
 					<depends>
 						<field id="cap_customer_request/stock/enable">1</field>
@@ -48,10 +48,10 @@
 				</field>
 			</group>
 			<group id="rma" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label">
-				<label>Return Request</label>
+				<label>Return Customer Request</label>
 				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
-					<label>Enable</label>
-					<comment>Enable Return Request</comment>
+					<label>Enable.</label>
+					<comment>Enable Customer Return Request.</comment>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 					<depends>
 						<field id="cap_customer_request/general/enable">1</field>
