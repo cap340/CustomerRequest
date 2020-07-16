@@ -40,7 +40,7 @@ class Save extends \Magento\Backend\App\Action
 
             $model = $this->_objectManager->create(\Cap\CustomerRequest\Model\Stock::class)->load($id);
             if (!$model->getId() && $id) {
-                $this->messageManager->addErrorMessage(__('This Stock Request no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This request no longer exists.'));
                 return $resultRedirect->setPath('*/*/');
             }
 
@@ -48,7 +48,7 @@ class Save extends \Magento\Backend\App\Action
 
             try {
                 $model->save();
-                $this->messageManager->addSuccessMessage(__('You saved the Stock Request.'));
+                $this->messageManager->addSuccessMessage(__('You saved the request.'));
                 $this->dataPersistor->clear('cap_customer_request_stock');
 
                 if ($this->getRequest()->getParam('back')) {
@@ -58,7 +58,7 @@ class Save extends \Magento\Backend\App\Action
             } catch (\Exception $e) {
                 $this->messageManager->addExceptionMessage(
                     $e,
-                    __('Something went wrong while saving the Stock Request.')
+                    __('Something went wrong while saving the request.')
                 );
             }
 

@@ -6,9 +6,6 @@
 
 namespace Cap\CustomerRequest\Model\Stock;
 
-use Cap\CustomerRequest\Model\ResourceModel\Stock\CollectionFactory;
-use Magento\Framework\App\Request\DataPersistorInterface;
-
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
     protected $loadedData;
@@ -16,7 +13,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     protected $collection;
 
     /**
-     * @var DataPersistorInterface
+     * @var \Magento\Framework\App\Request\DataPersistorInterface
      */
     protected $dataPersistor;
 

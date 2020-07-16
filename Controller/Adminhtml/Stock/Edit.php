@@ -42,7 +42,7 @@ class Edit extends \Cap\CustomerRequest\Controller\Adminhtml\Stock
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This Stock Request no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This request no longer exists.'));
                 /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
@@ -54,11 +54,11 @@ class Edit extends \Cap\CustomerRequest\Controller\Adminhtml\Stock
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $this->initPage($resultPage)->addBreadcrumb(
-            $id ? __('Edit Stock') : __('New Stock Request'),
-            $id ? __('Edit Stock') : __('New Stock Request')
+            $id ? __('Edit Request') : __('New Request'),
+            $id ? __('Edit Request') : __('New Request')
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Stock Requests'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? $model->getTitle() : __('New Stock Request'));
+        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? $model->getTitle() : __('New Request'));
         return $resultPage;
     }
 }

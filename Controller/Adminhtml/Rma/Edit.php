@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection DuplicatedCode */
+
 /**
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
@@ -8,6 +9,9 @@ namespace Cap\CustomerRequest\Controller\Adminhtml\Rma;
 
 class Edit extends \Cap\CustomerRequest\Controller\Adminhtml\Rma
 {
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -39,7 +43,7 @@ class Edit extends \Cap\CustomerRequest\Controller\Adminhtml\Rma
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This Rma Request no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This request no longer exists.'));
                 /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
@@ -51,11 +55,11 @@ class Edit extends \Cap\CustomerRequest\Controller\Adminhtml\Rma
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $this->initPage($resultPage)->addBreadcrumb(
-            $id ? __('Edit Rma') : __('New Rma'),
-            $id ? __('Edit Rma') : __('New Rma')
+            $id ? __('Edit Request') : __('New Request'),
+            $id ? __('Edit Request') : __('New Request')
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Rma Requests'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? $model->getTitle() : __('New Rma Request'));
+        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? $model->getTitle() : __('New Request'));
         return $resultPage;
     }
 }

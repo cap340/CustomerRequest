@@ -104,9 +104,8 @@ class RmaRepository implements \Cap\CustomerRequest\Api\RmaRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getList(
-        \Magento\Framework\Api\SearchCriteriaInterface $criteria
-    ) {
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $criteria)
+    {
         $collection = $this->rmaCollectionFactory->create();
         foreach ($criteria->getFilterGroups() as $filterGroup) {
             $fields = [];

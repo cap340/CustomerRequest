@@ -24,7 +24,7 @@ class Delete extends \Cap\CustomerRequest\Controller\Adminhtml\Stock
                 $model->load($id);
                 $model->delete();
 
-                $this->messageManager->addSuccessMessage(__('You deleted the Stock Request #%1.', $id));
+                $this->messageManager->addSuccessMessage(__('You deleted the request #%1.', $id));
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
@@ -32,7 +32,7 @@ class Delete extends \Cap\CustomerRequest\Controller\Adminhtml\Stock
             }
         }
 
-        $this->messageManager->addErrorMessage(__('We can\'t find a Stock Request to delete.'));
+        $this->messageManager->addErrorMessage(__('We can\'t find a request to delete.'));
         return $resultRedirect->setPath('*/*/');
     }
 }

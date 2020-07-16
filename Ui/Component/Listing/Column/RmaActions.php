@@ -9,11 +9,11 @@ namespace Cap\CustomerRequest\Ui\Component\Listing\Column;
 class RmaActions extends \Magento\Ui\Component\Listing\Columns\Column
 {
     const URL_PATH_DELETE = 'cap_customer_request/rma/delete';
-
     const URL_PATH_EDIT = 'cap_customer_request/rma/edit';
 
-    const URL_PATH_DETAILS = 'cap_customer_request/rma/details';
-
+    /**
+     * @var \Magento\Framework\UrlInterface
+     */
     protected $urlBuilder;
 
     /**
@@ -64,8 +64,8 @@ class RmaActions extends \Magento\Ui\Component\Listing\Columns\Column
                             ),
                             'label' => __('Delete'),
                             'confirm' => [
-                                'title' => __('Delete "${ $.$data.title }"'),
-                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.title }" record?')
+                                'title' => __('Delete "${ $.$data.entity_id }"'),
+                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.entity_id }" record?')
                             ]
                         ]
                     ];

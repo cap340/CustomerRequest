@@ -13,7 +13,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     protected $collection;
 
     /**
-     * @var DataPersistorInterface
+     * @var \Magento\Framework\App\Request\DataPersistorInterface
      */
     protected $dataPersistor;
 

@@ -23,7 +23,7 @@ class Delete extends \Cap\CustomerRequest\Controller\Adminhtml\Rma
                 $model = $this->_objectManager->create(\Cap\CustomerRequest\Model\Rma::class);
                 $model->load($id);
                 $model->delete();
-                $this->messageManager->addSuccessMessage(__('You deleted the Rma Request #%1.', $id));
+                $this->messageManager->addSuccessMessage(__('You deleted the request #%1.', $id));
 
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
@@ -31,7 +31,7 @@ class Delete extends \Cap\CustomerRequest\Controller\Adminhtml\Rma
                 return $resultRedirect->setPath('*/*/edit', ['entity_id' => $id]);
             }
         }
-        $this->messageManager->addErrorMessage(__('We can\'t find a Rma Request to delete.'));
+        $this->messageManager->addErrorMessage(__('We can\'t find a request to delete.'));
 
         return $resultRedirect->setPath('*/*/');
     }
