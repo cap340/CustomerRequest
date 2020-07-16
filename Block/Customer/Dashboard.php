@@ -6,6 +6,8 @@
 
 namespace Cap\CustomerRequest\Block\Customer;
 
+use Magento\Framework\Exception\NoSuchEntityException;
+
 class Dashboard extends \Magento\Customer\Block\Account\Dashboard
 {
     /**
@@ -19,6 +21,16 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     protected $helper;
 
     /**
+     * @var \Magento\Sales\Api\OrderRepositoryInterface
+     */
+    protected $orderRepository;
+
+    /**
+     * @var \Magento\Catalog\Api\ProductRepositoryInterface
+     */
+    protected $productRepository;
+
+    /**
      * Dashboard constructor.
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -28,6 +40,8 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
      * @param \Magento\Customer\Api\AccountManagementInterface $customerAccountManagement
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      * @param \Cap\CustomerRequest\Helper\Data $helper
+     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
      * @param array $data
      */
     public function __construct(
@@ -38,10 +52,14 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         \Magento\Customer\Api\AccountManagementInterface $customerAccountManagement,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Cap\CustomerRequest\Helper\Data $helper,
+        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         array $data = []
     ) {
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->helper = $helper;
+        $this->orderRepository = $orderRepository;
+        $this->productRepository = $productRepository;
         parent::__construct(
             $context,
             $customerSession,
@@ -77,5 +95,29 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
             ->addFieldToFilter('customer_id', $customerId)
 //            ->addFieldToFilter('status', ['in' => $options])
             ->setOrder('created_at', 'desc');
+    }
+
+    /**
+     * @param $sku
+     * @return \Magento\Catalog\Api\Data\ProductInterface|null
+     */
+    public function getLoadProductBySku($sku)
+    {
+        try {
+            return $this->productRepository->get($sku);
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+            $this->_logger->error($e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $id
+     * @return \Magento\Sales\Api\Data\OrderInterface
+     */
+    public function getLoadOrderById($id)
+    {
+        return $this->orderRepository->get($id);
     }
 }

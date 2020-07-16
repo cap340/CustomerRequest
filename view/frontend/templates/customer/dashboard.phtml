@@ -12,11 +12,29 @@
 <?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
 <?php $ordersCollection = $block->getOrdersCanRequest(); ?>
 
+<?php
+//
+//$test = $block->test();
+//
+//echo '<pre>';
+//print_r($test);
+//echo '</pre>';
+//
+?>
+
 <?php if ($block->isloggedIn()): ?>
     <?php if ($ordersCollection->count()): ?>
         <?php /** @var \Magento\Sales\Model\Order $order */ ?>
         <?php foreach ($block->getOrdersCanRequest() as $order): ?>
-            <?php echo $order->getIncrementId() ?>
+            <?php $order = $block->getLoadOrderById($order->getId()); ?>
+            <?php $orderItems = $order->getAllVisibleItems(); ?>
+            <?php foreach ($orderItems as $item): ?>
+                <?php if ($item->getProductType() == 'configurable'): ?>
+                    <?php $sku = $item->getProductOptions()['simple_sku']; ?>
+                    <?php $product = $block->getLoadProductBySku($sku); ?>
+                    <?php echo $product->getName(); ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
         <?php endforeach; ?>
     <?php else: ?>
         <div class="message error">
