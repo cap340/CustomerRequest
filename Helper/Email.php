@@ -4,7 +4,7 @@ namespace Cap\CustomerRequest\Helper;
 
 class Email extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const XML_PATH_EMAIL_ADMIN_NOTIFY = 'cap_customer_request/email/admin_notify';
+    const XML_PATH_EMAIL_ADMIN_NOTIFY = 'cap_customer_request/email/admin';
     const XML_PATH_EMAIL_ADMIN_SENDER = 'cap_customer_request/email/sender';
     const XML_PATH_EMAIL_ADMIN_TEMPLATE = 'cap_customer_request/email/template';
 
