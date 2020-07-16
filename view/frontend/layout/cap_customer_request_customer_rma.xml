@@ -14,7 +14,7 @@
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-            <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.dashboard" template="Cap_CustomerRequest::customer/dashboard.phtml"/>
+            <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.dashboard" template="customer/dashboard.phtml"/>
         </referenceContainer>
     </body>
 </page>

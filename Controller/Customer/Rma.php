@@ -6,7 +6,7 @@
 
 namespace Cap\CustomerRequest\Controller\Customer;
 
-class RmaRequest extends \Magento\Framework\App\Action\Action
+class Rma extends \Magento\Framework\App\Action\Action
 {
     /**
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void

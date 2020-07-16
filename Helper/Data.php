@@ -9,10 +9,18 @@ namespace Cap\CustomerRequest\Helper;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     const XML_PATH_MODULE_IS_ENABLED = 'cap_customer_request/general/enable';
+    const REQUEST_MEDIA_DIR = 'customer_request/product';
+
+    /**
+     * Stock request configuration
+     */
     const XML_PATH_STOCK_REQUEST_IS_ENABLED = 'cap_customer_request/stock/enable';
     const XML_PATH_STOCK_ATTRIBUTES_SORTING_ORDER = 'cap_customer_request/stock/attributes_sorting_order';
     const XML_PATH_STOCK_MESSAGE = 'cap_customer_request/stock/default_message';
-    const REQUEST_MEDIA_DIR = 'customer_request/product';
+    /**
+     * Rma request configuration
+     */
+    const XML_PATH_RMA_RETURN_POLICY_LINK = 'cap_customer_request/rma/return_policy_link';
 
     /**
      * @var \Magento\Framework\Data\Form\FormKey
@@ -93,6 +101,28 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * @return mixed
+     */
+    public function getConfigStockMessage()
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_STOCK_MESSAGE,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfigRmaPolicyLink()
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_RMA_RETURN_POLICY_LINK,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
      * Product
      */
 
@@ -168,16 +198,5 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getFormKeyValidation($request)
     {
         return $this->formKeyValidator->validate($request);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConfigStockMessage()
-    {
-        return $this->scopeConfig->getValue(
-            self::XML_PATH_STOCK_MESSAGE,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
     }
 }

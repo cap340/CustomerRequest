@@ -12,6 +12,9 @@
 				<default_message><![CDATA[I would like to be contacted to buy this product...]]></default_message>
 				<attributes_sorting_order><![CDATA[color,size]]></attributes_sorting_order>
 			</stock>
+			<rma>
+				<return_policy_link><![CDATA[customer-service]]></return_policy_link>
+			</rma>
 		</cap_customer_request>
 	</default>
 	<stores>

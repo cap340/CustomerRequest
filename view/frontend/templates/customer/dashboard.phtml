@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Cap\CustomerRequest\Block\Customer\Dashboard */ ?>
+
+<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
+<?php $ordersCollection = $block->getOrdersCanRequest(); ?>
+
+<?php if ($block->isloggedIn()): ?>
+    <?php if ($ordersCollection->count()): ?>
+        <?php /** @var \Magento\Sales\Model\Order $order */ ?>
+        <?php foreach ($block->getOrdersCanRequest() as $order): ?>
+            <?php echo $order->getIncrementId() ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="message error">
+            <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return policy%2.', '<a href="' . $block->getUrl($helper->getConfigRmaPolicyLink()) .'">', '</a>') ?>
+        </div>
+    <?php endif; ?>
+<?php else: ?>
+    <div class="message error">
+        <div><?php /* @escapeNotVerified */ echo __('You must be logged in.'); ?></div>
+    </div>
+<?php endif; ?>

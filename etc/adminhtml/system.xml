@@ -57,6 +57,12 @@
 						<field id="cap_customer_request/general/enable">1</field>
 					</depends>
 				</field>
+				<field id="return_policy_link" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Return Policy Link.</label>
+					<depends>
+						<field id="cap_customer_request/rma/enable">1</field>
+					</depends>
+				</field>
 			</group>
 			<group id="email" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label">
 				<label>Email Configuration.</label>
