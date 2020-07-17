@@ -121,4 +121,24 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     {
         return $this->orderRepository->get($id);
     }
+
+    /**
+     * @param $orderId
+     * @return bool
+     */
+    public function isOrderStatusAllowed($orderId)
+    {
+        $order = $this->getLoadOrderById($orderId);
+
+        $allowedStatuses = $this->helper->getOrderAllowedStatus();
+        $allowedStatuses = explode(',', $allowedStatuses);
+
+        foreach ($allowedStatuses as $status) {
+            if (in_array($order->getStatus(), $allowedStatuses)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

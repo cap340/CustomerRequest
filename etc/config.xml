@@ -14,6 +14,7 @@
 			</stock>
 			<rma>
 				<return_policy_link><![CDATA[customer-service]]></return_policy_link>
+				<allowed_orders><![CDATA[complete,processing]]></allowed_orders>
 			</rma>
 		</cap_customer_request>
 	</default>

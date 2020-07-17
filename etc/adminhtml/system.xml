@@ -63,6 +63,14 @@
 						<field id="cap_customer_request/rma/enable">1</field>
 					</depends>
 				</field>
+				<field id="allowed_orders" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Return Allowed Order Status.</label>
+					<comment><![CDATA[Select Order <strong>Statuses</strong> that can apply a request.]]></comment>
+					<source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+					<depends>
+						<field id="cap_customer_request/rma/enable">1</field>
+					</depends>
+				</field>
 			</group>
 			<group id="email" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label">
 				<label>Email Configuration.</label>
