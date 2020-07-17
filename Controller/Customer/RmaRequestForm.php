@@ -11,7 +11,7 @@ class RmaRequestForm extends \Magento\Framework\App\Action\Action
     /**
      * @var \Cap\CustomerRequest\Model\RmaFactory
      */
-    protected $rmaFactory;
+    protected $rmaRequestFactory;
 
     /**
      * @var \Cap\CustomerRequest\Helper\Data
@@ -22,22 +22,19 @@ class RmaRequestForm extends \Magento\Framework\App\Action\Action
      * RmaRequestForm constructor.
      *
      * @param \Magento\Framework\App\Action\Context $context
-     * @param \Cap\CustomerRequest\Model\RmaFactory $rmaFactory
+     * @param \Cap\CustomerRequest\Model\RmaFactory $rmaRequestFactory
      * @param \Cap\CustomerRequest\Helper\Data $helper
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Cap\CustomerRequest\Model\RmaFactory $rmaFactory,
+        \Cap\CustomerRequest\Model\RmaFactory $rmaRequestFactory,
         \Cap\CustomerRequest\Helper\Data $helper
     ) {
-        $this->rmaFactory = $rmaFactory;
+        $this->rmaRequestFactory = $rmaRequestFactory;
         $this->helper = $helper;
         parent::__construct($context);
     }
 
-    /**
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
-     */
     public function execute()
     {
         $resultRedirect = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_REDIRECT);
@@ -48,12 +45,20 @@ class RmaRequestForm extends \Magento\Framework\App\Action\Action
 
         $post = (array)$this->getRequest()->getPost();
         if (!empty($post)) {
-            print_r($post);
+            foreach ($post['orderId'] as $key => $val) {
+                if (isset($post['submit'][$key])) {
+                    $orderId = $post['orderId'][$key];
+                    $customerId = $post['customerId'][$key];
+//                    echo $orderId . ': ' . $customerId;
+
+                    $model = $this->rmaRequestFactory->create();
+                    $model->setOrderId($post['orderId'][$key]);
+                    $model->setCustomerId($post['customerId'][$key]);
+                    $model->save();
+                }
+            }
         }
 
-        $this->_view->loadLayout();
-        $this->_view->renderLayout();
-
-        // TODO: missing return statement
+        return $resultRedirect->setRefererOrBaseUrl();
     }
 }

@@ -14,29 +14,30 @@
 
 <?php if ($block->isloggedIn() && $helper->isReturnRequestEnabled()): ?>
     <?php if ($ordersCollection->count()): ?>
-
-        <?php $incrementIds = []; ?>
+        <?php $jsIncrementIds = []; ?>
         <?php /** @var \Magento\Sales\Model\Order $order */ ?>
         <?php foreach ($ordersCollection as $order): ?>
             <?php if ($block->isOrderStatusAllowed($order->getId())): ?>
                 <?php $order = $block->getLoadOrderById($order->getId()); ?>
-                <?php $incrementIds[] = $order->getIncrementId(); // Js variables ?>
+                <?php $jsIncrementIds[] = $order->getIncrementId(); // Js variable to differentiate each popup modal ?>
 
-                <?php // trigger modal ?>
+                <?php // modal trigger ?>
                 <a href="#" id="modal-trigger-order-<?php echo $order->getIncrementId(); ?>">
                     <?php echo $order->getIncrementId(); ?>
                 </a>
 
                 <?php // modal content ?>
-                <div id="popup-modal-<?php echo $order->getIncrementId(); ?>">
-                    <?php $orderItems = $order->getAllVisibleItems(); ?>
+                <div id="popup-modal-<?php echo $order->getIncrementId();?>">
 
-                    <form id="rma-form-<?php echo $order->getIncrementId(); ?>"
-                          action="<?php echo $block->getFormAction() ?>"
+                    <?php $orderItems = $order->getAllVisibleItems();?>
+                    <form id="rma-form-<?php echo $order->getIncrementId();?>"
+                          action="<?php echo $block->getFormAction();?>"
                           method="post"
                           data-mage-init='{"validation":{}}'>
 
                         <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey();?>">
+                        <input type="hidden" name="orderId[]" value="<?php echo $order->getId();?>">
+                        <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId();?>">
 
                         <fieldset class="fieldset create stock-request">
                             <?php foreach ($orderItems as $item): ?>
@@ -45,17 +46,13 @@
                                     <?php $sku = $item->getProductOptions()['simple_sku']; ?>
                                     <?php $product = $block->getLoadProductBySku($sku); ?>
                                     <div class="field option required">
-                                        <input type="checkbox"
-                                               id="order-item-<?php echo $product->getId(); ?>"
-                                               name="orderItem<?php echo $product->getId(); ?>">
-                                        <label for="orderItem<?php echo $product->getId(); ?>">
-                                            <?php echo $product->getName(); ?>
-                                        </label>
+                                        <label for="orderItem[]"><?php echo $product->getName(); ?></label>
+                                        <input type="checkbox" name="orderItem[]" id="order-item-<?php echo $product->getId(); ?>">
                                     </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>
 
-                            <button type="submit" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
+                            <button type="submit" name="submit[]" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
 
                         </fieldset>
                     </form>
@@ -63,13 +60,11 @@
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
-
     <?php else: ?>
         <div class="message error">
             <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return policy%2.', '<a href="' . $block->getUrl($helper->getConfigRmaPolicyLink()) .'">', '</a>') ?>
         </div>
     <?php endif; ?>
-
 <?php else: ?>
     <div class="message error">
         <div><?php /* @escapeNotVerified */ echo __('You must be logged in.'); ?></div>
@@ -81,7 +76,7 @@
         'jquery',
         'Magento_Ui/js/modal/modal'
     ], function ($, modal) {
-        var ids = <?php echo json_encode($incrementIds) ?>;
+        var ids = <?php echo json_encode($jsIncrementIds) ?>;
         $.each(ids, function (key, id) {
             var form = $('#rma-form-'+id);
             var options = {

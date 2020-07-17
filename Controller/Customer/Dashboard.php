@@ -6,7 +6,7 @@
 
 namespace Cap\CustomerRequest\Controller\Customer;
 
-class Rma extends \Magento\Framework\App\Action\Action
+class Dashboard extends \Magento\Framework\App\Action\Action
 {
     /**
      * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|void
