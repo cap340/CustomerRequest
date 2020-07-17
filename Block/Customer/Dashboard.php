@@ -141,4 +141,12 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
 
         return false;
     }
+
+    /**
+     * @return string
+     */
+    public function getFormAction()
+    {
+        return '/cap_customer_request/customer/rmarequestform';
+    }
 }

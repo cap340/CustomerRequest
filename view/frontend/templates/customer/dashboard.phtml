@@ -12,61 +12,56 @@
 <?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
 <?php $ordersCollection = $block->getOrdersCanRequest(); ?>
 
-<?php
-
-//$test = $block->test();
-//print_r($test);
-?>
-
 <?php if ($block->isloggedIn() && $helper->isReturnRequestEnabled()): ?>
-
-    <?php // note: if orders can request ?>
     <?php if ($ordersCollection->count()): ?>
 
+        <?php $incrementIds = []; ?>
         <?php /** @var \Magento\Sales\Model\Order $order */ ?>
-        <?php foreach ($block->getOrdersCanRequest() as $order): ?>
-
-            <?php // note: if order status is allowed ?>
-            <?php $order = $block->getLoadOrderById($order->getId()); ?>
+        <?php foreach ($ordersCollection as $order): ?>
             <?php if ($block->isOrderStatusAllowed($order->getId())): ?>
+                <?php $order = $block->getLoadOrderById($order->getId()); ?>
+                <?php $incrementIds[] = $order->getIncrementId(); // Js variables ?>
 
-                <button type="button" class="action" data-trigger="trigger-order-<?php echo $order->getIncrementId(); ?>">
-                    <span><?php echo $order->getIncrementId(); ?></span>
-                </button>
-                <div data-bind="mageInit: {
-                    'Magento_Ui/js/modal/modal':{
-                        'type': 'popup',
-                        'title': 'Popup title <?php echo $order->getIncrementId(); ?>',
-                        'trigger': '[data-trigger=trigger-order-<?php echo $order->getIncrementId(); ?>]',
-                        'responsive': true,
-                        'buttons': [{
-                            text: jQuery.mage.__('Submit'),
-                            class: 'action'
-                        }]
-                    }}">
-                    <div class="content">
-                        <?php $orderItems = $order->getAllVisibleItems(); ?>
-                        <?php foreach ($orderItems as $item): ?>
-                            <?php // note: if order item is configurable ?>
-                            <?php // todo: simple, bundle etc... ?>
-                            <?php if ($item->getProductType() == 'configurable'): ?>
-                                <?php $sku = $item->getProductOptions()['simple_sku']; ?>
-                                <?php $product = $block->getLoadProductBySku($sku); ?>
-                                <div>
-                                    <input type="checkbox"
-                                           id="order-item-<?php echo $product->getId(); ?>"
-                                           name="order-item-<?php echo $product->getId(); ?>">
-                                    <label for="order-item-<?php echo $product->getId(); ?>">
-                                        <?php echo $product->getName(); ?>
-                                        <?php // todo: product option in select value (size, color) ?>
-                                    </label>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
+                <?php // trigger modal ?>
+                <a href="#" id="modal-trigger-order-<?php echo $order->getIncrementId(); ?>">
+                    <?php echo $order->getIncrementId(); ?>
+                </a>
+
+                <?php // modal content ?>
+                <div id="popup-modal-<?php echo $order->getIncrementId(); ?>">
+                    <?php $orderItems = $order->getAllVisibleItems(); ?>
+
+                    <form id="rma-form-<?php echo $order->getIncrementId(); ?>"
+                          action="<?php echo $block->getFormAction() ?>"
+                          method="post"
+                          data-mage-init='{"validation":{}}'>
+
+                        <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey();?>">
+
+                        <fieldset class="fieldset create stock-request">
+                            <?php foreach ($orderItems as $item): ?>
+                                <?php // todo: simple, bundle etc... ?>
+                                <?php if ($item->getProductType() == 'configurable'): ?>
+                                    <?php $sku = $item->getProductOptions()['simple_sku']; ?>
+                                    <?php $product = $block->getLoadProductBySku($sku); ?>
+                                    <div class="field option required">
+                                        <input type="checkbox"
+                                               id="order-item-<?php echo $product->getId(); ?>"
+                                               name="order-item-<?php echo $product->getId(); ?>">
+                                        <label for="order-item-<?php echo $product->getId(); ?>">
+                                            <?php echo $product->getName(); ?>
+                                        </label>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+
+                            <button type="submit" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
+
+                        </fieldset>
+                    </form>
+
                 </div>
             <?php endif; ?>
-
         <?php endforeach; ?>
 
     <?php else: ?>
@@ -81,3 +76,33 @@
     </div>
 <?php endif; ?>
 
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function ($, modal) {
+        var ids = <?php echo json_encode($incrementIds) ?>;
+        $.each(ids, function (key, id) {
+            var form = $('#rma-form-'+id);
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Order: '+id,
+                modalClass: 'cap-request-modal',
+                buttons: [{
+                    text: $.mage.__('Submit'),
+                    class: 'action primary',
+                    click: function () {
+                        // this.closeModal();
+                        form.find('button[type="submit"]').click();
+                    }
+                }]
+            };
+            var popup = modal(options, $('#popup-modal-'+id));
+            $('#modal-trigger-order-'+id).click(function () {
+                $("#popup-modal-"+id).modal('openModal');
+            });
+        })
+    });
+</script>
