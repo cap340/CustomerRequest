@@ -19,92 +19,65 @@
 ?>
 
 <?php if ($block->isloggedIn() && $helper->isReturnRequestEnabled()): ?>
+
     <?php // note: if orders can request ?>
     <?php if ($ordersCollection->count()): ?>
+
         <?php /** @var \Magento\Sales\Model\Order $order */ ?>
         <?php foreach ($block->getOrdersCanRequest() as $order): ?>
-            <?php $order = $block->getLoadOrderById($order->getId()); ?>
+
             <?php // note: if order status is allowed ?>
+            <?php $order = $block->getLoadOrderById($order->getId()); ?>
             <?php if ($block->isOrderStatusAllowed($order->getId())): ?>
-                <?php $orderItems = $order->getAllVisibleItems(); ?>
-                <?php foreach ($orderItems as $item): ?>
-                    <?php // note: if order item is configurable ?>
-                    <?php // todo: simple, bundle etc... ?>
-                    <?php if ($item->getProductType() == 'configurable'): ?>
-                        <?php $sku = $item->getProductOptions()['simple_sku']; ?>
-                        <?php $product = $block->getLoadProductBySku($sku); ?>
-                        <div>
-                            <input type="checkbox"
-                                   id="order-item-<?php echo $product->getId(); ?>"
-                                   name="order-item-<?php echo $product->getId(); ?>">
-                            <label for="order-item-<?php echo $product->getId(); ?>">
-                                <?php echo $product->getName(); ?>
-                                <?php // todo: product option in select value (size, color) ?>
-                            </label>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+
+                <button type="button" class="action" data-trigger="trigger-order-<?php echo $order->getIncrementId(); ?>">
+                    <span><?php echo $order->getIncrementId(); ?></span>
+                </button>
+                <div data-bind="mageInit: {
+                    'Magento_Ui/js/modal/modal':{
+                        'type': 'popup',
+                        'title': 'Popup title <?php echo $order->getIncrementId(); ?>',
+                        'trigger': '[data-trigger=trigger-order-<?php echo $order->getIncrementId(); ?>]',
+                        'responsive': true,
+                        'buttons': [{
+                            text: jQuery.mage.__('Submit'),
+                            class: 'action'
+                        }]
+                    }}">
+                    <div class="content">
+                        <?php $orderItems = $order->getAllVisibleItems(); ?>
+                        <?php foreach ($orderItems as $item): ?>
+                            <?php // note: if order item is configurable ?>
+                            <?php // todo: simple, bundle etc... ?>
+                            <?php if ($item->getProductType() == 'configurable'): ?>
+                                <?php $sku = $item->getProductOptions()['simple_sku']; ?>
+                                <?php $product = $block->getLoadProductBySku($sku); ?>
+                                <div>
+                                    <input type="checkbox"
+                                           id="order-item-<?php echo $product->getId(); ?>"
+                                           name="order-item-<?php echo $product->getId(); ?>">
+                                    <label for="order-item-<?php echo $product->getId(); ?>">
+                                        <?php echo $product->getName(); ?>
+                                        <?php // todo: product option in select value (size, color) ?>
+                                    </label>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             <?php endif; ?>
+
         <?php endforeach; ?>
+
     <?php else: ?>
         <div class="message error">
             <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return policy%2.', '<a href="' . $block->getUrl($helper->getConfigRmaPolicyLink()) .'">', '</a>') ?>
         </div>
     <?php endif; ?>
+
 <?php else: ?>
     <div class="message error">
         <div><?php /* @escapeNotVerified */ echo __('You must be logged in.'); ?></div>
     </div>
 <?php endif; ?>
 
-<button type="button" class="action" data-trigger="trigger">
-    <span data-bind="i18n: 'Click Here'"></span>
-</button>
-<div data-bind="mageInit: {
-        'Magento_Ui/js/modal/modal':{
-            'type': 'popup',
-            'title': 'Popup title',
-            'trigger': '[data-trigger=trigger]',
-            'responsive': true,
-            'buttons': [{
-                text: jQuery.mage.__('Submit'),
-                class: 'action'
-            }]
-        }}">
-    <div class="content">
-        Popup Content
-    </div>
-</div>
-<!--<script>-->
-<!--    require(-->
-<!--        [-->
-<!--            'jquery',-->
-<!--            'Magento_Ui/js/modal/modal'-->
-<!--        ],-->
-<!--        function(-->
-<!--            $,-->
-<!--            modal-->
-<!--        ) {-->
-<!--            var options = {-->
-<!--                type: 'popup',-->
-<!--                responsive: true,-->
-<!--                innerScroll: true,-->
-<!--                title: 'Modal Title',-->
-<!--                modalClass: 'custom-modal',-->
-<!--                buttons: [{-->
-<!--                    text: $.mage.__('Continue'),-->
-<!--                    class: '',-->
-<!--                    click: function () {-->
-<!--                        this.closeModal();-->
-<!--                        $('#popup-modal').html(" ");-->
-<!--                    }-->
-<!--                }]-->
-<!--            };-->
-<!---->
-<!--            var popup = modal(options, $('#popup-modal'));-->
-<!---->
-<!--            //this opens the modal, you can use some click event or whatever you need to trigger the modal here-->
-<!--            $("#popup-modal").modal('openModal');-->
-<!--        }-->
-<!--    );-->
-<!--</script>-->
