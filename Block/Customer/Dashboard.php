@@ -31,6 +31,11 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     protected $productRepository;
 
     /**
+     * @var \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory
+     */
+    protected $rmaCollectionFactory;
+
+    /**
      * Dashboard constructor.
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -42,6 +47,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
      * @param \Cap\CustomerRequest\Helper\Data $helper
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+     * @param \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory $rmaCollectionFactory
      * @param array $data
      */
     public function __construct(
@@ -54,12 +60,14 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         \Cap\CustomerRequest\Helper\Data $helper,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory $rmaCollectionFactory,
         array $data = []
     ) {
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->helper = $helper;
         $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
+        $this->rmaCollectionFactory = $rmaCollectionFactory;
         parent::__construct(
             $context,
             $customerSession,
@@ -148,5 +156,16 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     public function getFormAction()
     {
         return '/cap_customer_request/customer/rmarequestform';
+    }
+
+    /**
+     * @param $customerId
+     * @return \Cap\CustomerRequest\Model\ResourceModel\Rma\Collection
+     */
+    public function getRmaCustomerHistory($customerId)
+    {
+        $collection = $this->rmaCollectionFactory->create();
+        return $collection->addFieldToSelect('*')
+            ->addFilter('customer_id', $customerId, 'like');
     }
 }

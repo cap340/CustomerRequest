@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Cap\CustomerRequest\Block\Customer\Dashboard */ ?>
+
+<?php $customerId = $block->getCustomer()->getId() ?>
+<?php $collection = $block->getRmaCustomerHistory($customerId) ?>
+
+<h1>History</h1>
+<?php if ($collection->count()): ?>
+
+    <?php /** @var \Cap\CustomerRequest\Model\Rma $item */ ?>
+    <?php foreach ($collection as $item): ?>
+        <?php echo $item->getEntityId(); ?>
+        <?php $order = $block->getLoadOrderById($item->getOrderId()); ?>
+        <?php print_r($order->getIncrementId()); ?>
+
+    <?php endforeach; ?>
+
+<?php else: ?>
+    <div class="message error">
+        <?= /* @escapeNotVerified */ __('You have no request.') ?>
+    </div>
+<?php endif; ?>
