@@ -12,6 +12,7 @@
 <?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
 
 <?php if ($block->isloggedIn() && $helper->isReturnRequestEnabled()): ?>
+
     <?php echo $block->getChildHtml('cap.customer.request.form') ;?>
     <?php echo $block->getChildHtml('cap.customer.request.history') ;?>
 

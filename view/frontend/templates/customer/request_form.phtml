@@ -12,7 +12,7 @@
 <?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
 <?php $ordersCollection = $block->getOrdersCanRequest(); ?>
 
-<?php if ($ordersCollection->count()): ?>
+<?php if ($ordersCollection && count($ordersCollection)): ?>
     <?php $jsIncrementIds = []; ?>
     <?php /** @var \Magento\Sales\Model\Order $order */ ?>
     <?php foreach ($ordersCollection as $order): ?>

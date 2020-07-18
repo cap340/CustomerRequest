@@ -13,18 +13,43 @@
 <?php $collection = $block->getRmaCustomerHistory($customerId) ?>
 
 <h1>History</h1>
-<?php if ($collection->count()): ?>
 
-    <?php /** @var \Cap\CustomerRequest\Model\Rma $item */ ?>
-    <?php foreach ($collection as $item): ?>
-        <?php echo $item->getEntityId(); ?>
-        <?php $order = $block->getLoadOrderById($item->getOrderId()); ?>
-        <?php print_r($order->getIncrementId()); ?>
+<?php if ($collection && count($collection)): ?>
 
-    <?php endforeach; ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Requests') ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Request #') ?></th>
+                <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
+                <th scope="col" class="col shipping"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
+                <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+                <th scope="col" class="col actions">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php /** @var \Cap\CustomerRequest\Model\Rma $item */ ?>
+            <?php foreach ($collection as $item): ?>
+                <?php $order = $block->getLoadOrderById($item->getOrderId()); ?>
+                <tr>
+                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $item->getEntityId() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
 
 <?php else: ?>
-    <div class="message error">
+    <div class="message info empty">
         <?= /* @escapeNotVerified */ __('You have no request.') ?>
     </div>
 <?php endif; ?>
