@@ -52,7 +52,7 @@ class StockRequestForm extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * @inheritDoc
+     * @return void
      */
     public function execute()
     {
@@ -104,7 +104,5 @@ class StockRequestForm extends \Magento\Framework\App\Action\Action
 
         $this->_view->loadLayout();
         $this->_view->renderLayout();
-
-        // TODO: missing return statement
     }
 }

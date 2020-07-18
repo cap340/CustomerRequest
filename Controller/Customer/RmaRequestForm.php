@@ -35,6 +35,10 @@ class RmaRequestForm extends \Magento\Framework\App\Action\Action
         parent::__construct($context);
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     */
     public function execute()
     {
         $resultRedirect = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_REDIRECT);
@@ -47,10 +51,6 @@ class RmaRequestForm extends \Magento\Framework\App\Action\Action
         if (!empty($post)) {
             foreach ($post['orderId'] as $key => $val) {
                 if (isset($post['submit'][$key])) {
-                    $orderId = $post['orderId'][$key];
-                    $customerId = $post['customerId'][$key];
-//                    echo $orderId . ': ' . $customerId;
-
                     $model = $this->rmaRequestFactory->create();
                     $model->setOrderId($post['orderId'][$key]);
                     $model->setCustomerId($post['customerId'][$key]);

@@ -1,5 +1,6 @@
 ## Todo
 
+- Maintenance Mode (cf backup)
 - Send Email
   - Template / i18n
 - Admin grid
@@ -8,6 +9,7 @@
 - CRON
   - Delete unused request media
 - RMA Pager
+- Mageplaza google ReCAPTCHA message
   
 ## Sources
 - [creating and calling modal widget](https://magento.stackexchange.com/a/208265/56025)
