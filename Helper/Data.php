@@ -16,7 +16,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     const XML_PATH_STOCK_REQUEST_IS_ENABLED = 'cap_customer_request/stock/enable';
     const XML_PATH_STOCK_ATTRIBUTES_SORTING_ORDER = 'cap_customer_request/stock/attributes_sorting_order';
-    const XML_PATH_STOCK_MESSAGE = 'cap_customer_request/stock/default_message';
+    const XML_PATH_STOCK_COMMENT = 'cap_customer_request/stock/comment';
     /**
      * Rma request configuration
      */
@@ -116,10 +116,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return mixed
      */
-    public function getConfigStockMessage()
+    public function getConfigStockComment()
     {
         return $this->scopeConfig->getValue(
-            self::XML_PATH_STOCK_MESSAGE,
+            self::XML_PATH_STOCK_COMMENT,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }

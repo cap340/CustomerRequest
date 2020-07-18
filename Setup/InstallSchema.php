@@ -11,6 +11,7 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
     /**
      * {@inheritdoc}
      * @throws \Zend_Db_Exception
+     * @noinspection DuplicatedCode
      */
     public function install(
         \Magento\Framework\Setup\SchemaSetupInterface $setup,
@@ -79,6 +80,30 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
             'Updated At'
         );
+        $table->addForeignKey(
+            $installer->getFkName(
+                'cap_customer_request_rma',
+                'customer_id',
+                'customer_entity',
+                'entity_id'
+            ),
+            'entity_id',
+            $installer->getTable('customer_entity'),
+            'entity_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        );
+        $table->addForeignKey(
+            $installer->getFkName(
+                'cap_customer_request_rma',
+                'order_id',
+                'sales_order',
+                'entity_id'
+            ),
+            'entity_id',
+            $installer->getTable('sales_order'),
+            'entity_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        );
 
         $installer->getConnection()->createTable($table);
 
@@ -136,11 +161,11 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             'Request Status'
         );
         $table->addColumn(
-            'message',
+            'comment',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
             [],
-            'Request Message'
+            'Request Comment'
         );
         $table->addColumn(
             'created_at',

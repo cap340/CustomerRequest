@@ -14,7 +14,7 @@ interface StockInterface
     const PRODUCT_NAME = 'product_name';
     const CUSTOMER_NAME = 'customer_name';
     const CUSTOMER_EMAIL = 'customer_email';
-    const MESSAGE = 'message';
+    const COMMENT = 'comment';
     const STATUS = 'status';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -126,19 +126,19 @@ interface StockInterface
     public function setStatus($status);
 
     /**
-     * Get message
+     * Get comment
      *
      * @return string|null
      */
-    public function getMessage();
+    public function getComment();
 
     /**
-     * Set message
+     * Set comment
      *
-     * @param string $message
+     * @param string $comment
      * @return \Cap\CustomerRequest\Api\Data\StockInterface
      */
-    public function setMessage($message);
+    public function setComment($comment);
 
     /**
      * Get created_at

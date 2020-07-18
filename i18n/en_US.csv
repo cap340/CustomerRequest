@@ -35,7 +35,7 @@ Delete,Delete
 "Your Name","Your Name"
 "Your Email","Your Email"
 "Please select an option","Please select an option"
-"Your Message","Your Message"
+"Your Comment","Your Comment"
 Submit,Submit
 Cap340,Cap340
 Request,Request
@@ -45,7 +45,7 @@ Request,Request
 Enable.,Enable.
 "Attributes Sorting Order.","Attributes Sorting Order."
 "comma separated attribute codes. <em>(like: color,size)<em>","comma separated attribute codes. <em>(like: color,size)<em>"
-"Default Message.","Default Message."
+"Default Comment.","Default Comment."
 "Return Customer Request","Return Customer Request"
 "General Information","General Information"
 product_id,product_id
@@ -58,7 +58,7 @@ product_name,product_name
 customer_name,customer_name
 customer_email,customer_email
 status,status
-message,message
+comment,comment
 created_at,created_at
 updated_at,updated_at
 "Add new Stock Request","Add new Stock Request"

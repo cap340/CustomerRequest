@@ -35,7 +35,7 @@ Delete,Supprimer
 "Your Name","Votre Nom"
 "Your Email","Votre Email"
 "Please select an option","Veuillez choisir une option"
-"Your Message","Votre Message"
+"Your Comment","Votre Commentaire"
 Submit,Envoyer
 Cap340,Cap340
 Request,Demande
@@ -45,7 +45,7 @@ Request,Demande
 Enable.,Activée.
 "Attributes Sorting Order.","Attributes Sorting Order."
 "comma separated attribute codes. <em>(like: color,size)<em>","comma separated attribute codes. <em>(like: color,size)<em>"
-"Default Message.","Default Message."
+"Default Comment.","Commentaire par défault."
 "Return Customer Request","Demande de retour"
 "General Information","Informations générales"
 product_id,product_id
@@ -58,7 +58,7 @@ product_name,product_name
 customer_name,customer_name
 customer_email,customer_email
 status,status
-message,message
+comment,commentaire
 created_at,created_at
 updated_at,updated_at
 "Add new Stock Request","Ajouter une demande de stock"

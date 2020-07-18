@@ -174,10 +174,10 @@
 				</item>
 			</argument>
 		</column>
-		<column name="message">
+		<column name="comment">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
-					<item name="label" translate="true" xsi:type="string">message</item>
+					<item name="label" translate="true" xsi:type="string">Comment</item>
 					<item name="sortOrder" xsi:type="number">40</item>
 				</item>
 			</argument>

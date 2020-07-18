@@ -39,9 +39,9 @@
 						<field id="cap_customer_request/stock/enable">1</field>
 					</depends>
 				</field>
-				<field id="default_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Default Message.</label>
-					<comment><![CDATA[Default form message. <em>Optional<em>]]></comment>
+				<field id="comment" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Default COmment.</label>
+					<comment><![CDATA[Default form comment. <em>(optional)<em>]]></comment>
 					<depends>
 						<field id="cap_customer_request/stock/enable">1</field>
 					</depends>

@@ -138,15 +138,15 @@
 				</item>
 			</argument>
 		</field>
-		<field name="message">
+		<field name="comment">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="dataType" xsi:type="string">text</item>
-					<item name="label" translate="true" xsi:type="string">message</item>
+					<item name="label" translate="true" xsi:type="string">Comment</item>
 					<item name="formElement" xsi:type="string">textarea</item>
 					<item name="source" xsi:type="string">Stock</item>
 					<item name="sortOrder" xsi:type="number">100</item>
-					<item name="dataScope" xsi:type="string">message</item>
+					<item name="dataScope" xsi:type="string">comment</item>
 					<item name="validation" xsi:type="array">
 						<item name="required-entry" xsi:type="boolean">false</item>
 					</item>

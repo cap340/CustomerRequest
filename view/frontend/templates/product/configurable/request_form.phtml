@@ -74,16 +74,16 @@
             <?php // Product Id from Js  ?>
             <input type="hidden" name="productId" value="">
 
-            <?php // Message  ?>
-            <div class="field message-text required">
-                <label class="label" for="message"><?php /* @escapeNotVerified */ echo __('Your Message'); ?></label>
+            <?php // Comment  ?>
+            <div class="field comment-text required">
+                <label class="label" for="comment"><?php /* @escapeNotVerified */ echo __('Your Comment'); ?></label>
                 <div class="control">
-                <textarea name="message"
+                <textarea name="comment"
                           rows="2"
                           data-validate="{
                           required:true,
                           'min-words':3
-                          }"><?php echo $helper->getConfigStockMessage(); ?></textarea>
+                          }"><?php echo $helper->getConfigStockComment(); ?></textarea>
                 </div>
             </div>
 

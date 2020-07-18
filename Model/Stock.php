@@ -160,24 +160,24 @@ class Stock extends \Magento\Framework\Model\AbstractModel implements StockInter
     }
 
     /**
-     * Get message
+     * Get comment
      *
      * @return string
      */
-    public function getMessage()
+    public function getComment()
     {
-        return $this->getData(self::MESSAGE);
+        return $this->getData(self::COMMENT);
     }
 
     /**
-     * Set message
+     * Set comment
      *
-     * @param string $message
+     * @param string $comment
      * @return \Cap\CustomerRequest\Api\Data\StockInterface
      */
-    public function setMessage($message)
+    public function setComment($comment)
     {
-        return $this->setData(self::MESSAGE, $message);
+        return $this->setData(self::COMMENT, $comment);
     }
 
     /**
