@@ -7,6 +7,7 @@
 - ACL
 - CRON
   - Delete unused request media
+- RMA Pager
   
 ## Sources
 - [creating and calling modal widget](https://magento.stackexchange.com/a/208265/56025)

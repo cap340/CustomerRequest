@@ -34,15 +34,22 @@
                 <?php $order = $block->getLoadOrderById($item->getOrderId()); ?>
                 <tr>
                     <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $item->getEntityId() ?></td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $item->getCreatedAt() ?></td>
                     <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                    <?php // todo: $item->$order->getStatusLabel() = $rma->getStatusLabel() ;?>
+                    <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $order->getStatusLabel() ?></td>
+                    <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                        <a href="<?php /* @escapeNotVerified */ // echo $block->getViewUrl($_order) ?>" class="action view">
+                            <span><?php /* @escapeNotVerified */ echo __('Details') ?></span>
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
     </div>
+
+    <?php // todo: PAGER ?>
 
     <?php if ($block->getPagerHtml()): ?>
         <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
