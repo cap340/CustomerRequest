@@ -23,7 +23,9 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
         /**
          * Create table 'cap_customer_request_rma'
          */
-        $table = $installer->getConnection()->newTable($installer->getTable('cap_customer_request_rma'));
+        $table = $installer->getConnection()->newTable(
+            $installer->getTable('cap_customer_request_rma')
+        );
         $table->addColumn(
             'entity_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -35,22 +37,22 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             'order_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             10,
-            [],
+            ['nullable' => false, 'unsigned' => true],
             'Order Id'
         );
         $table->addColumn(
             'customer_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             10,
-            [],
+            ['nullable' => false, 'unsigned' => true],
             'Customer Id'
         );
         $table->addColumn(
-            'product_ids',
+            'products_sku',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
             [],
-            'Product Ids'
+            'Products Sku'
         );
         $table->addColumn(
             'status',
@@ -85,9 +87,9 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 'cap_customer_request_rma',
                 'customer_id',
                 'customer_entity',
-                'entity_id'
+                'customer_id'
             ),
-            'entity_id',
+            'customer_id',
             $installer->getTable('customer_entity'),
             'entity_id',
             \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
@@ -97,20 +99,21 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
                 'cap_customer_request_rma',
                 'order_id',
                 'sales_order',
-                'entity_id'
+                'order_id'
             ),
-            'entity_id',
+            'order_id',
             $installer->getTable('sales_order'),
             'entity_id',
             \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         );
-
         $installer->getConnection()->createTable($table);
 
         /**
          * Create table 'cap_customer_request_stock'
          */
-        $table = $installer->getConnection()->newTable($installer->getTable('cap_customer_request_stock'));
+        $table = $installer->getConnection()->newTable(
+            $installer->getTable('cap_customer_request_stock')
+        );
         $table->addColumn(
             'entity_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
@@ -188,7 +191,6 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             [],
             'Product Image Path'
         );
-
         $installer->getConnection()->createTable($table);
 
         $installer->endSetup();

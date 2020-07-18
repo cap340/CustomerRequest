@@ -13,7 +13,7 @@
 - [Backend Configuration: Source Model](https://magently.com/blog/magento-2-backend-configuration-source-model/)
 - [Copy & Resize image](https://magento.stackexchange.com/a/134373/56025)
 - [$_POST form with multiple variable inputs in foreach loop](https://stackoverflow.com/a/45842316/8243229)
-- [db foreign key](https://www.rakeshjesadiya.com/how-to-add-foreign-key-in-database-table-using-magento-2/)
+- [db foreign key](https://webkul.com/blog/add-foreign-key-magento2/)
 
 ##
 - [Add Magento 2 Modal Widget Module ](https://www.cloudways.com/blog/magento-2-modal-widget/)
