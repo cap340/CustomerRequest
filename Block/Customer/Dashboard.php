@@ -26,14 +26,24 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     protected $orderRepository;
 
     /**
-     * @var \Magento\Catalog\Api\ProductRepositoryInterface
-     */
-    protected $productRepository;
-
-    /**
      * @var \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory
      */
     protected $rmaCollectionFactory;
+
+    /**
+     * @var \Cap\CustomerRequest\Model\Rma\ListStatus
+     */
+    protected $listStatus;
+
+    /**
+     * @var \Magento\Sales\Model\Order\Config
+     */
+    protected $orderConfig;
+
+    /**
+     * @var \Magento\Sales\Model\ResourceModel\Order\Collection
+     */
+    protected $orders;
 
     /**
      * Dashboard constructor.
@@ -46,8 +56,9 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory
      * @param \Cap\CustomerRequest\Helper\Data $helper
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
-     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
      * @param \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory $rmaCollectionFactory
+     * @param \Cap\CustomerRequest\Model\Rma\ListStatus $listStatus
+     * @param \Magento\Sales\Model\Order\Config $orderConfig
      * @param array $data
      */
     public function __construct(
@@ -59,15 +70,17 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderCollectionFactory,
         \Cap\CustomerRequest\Helper\Data $helper,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
         \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory $rmaCollectionFactory,
+        \Cap\CustomerRequest\Model\Rma\ListStatus $listStatus,
+        \Magento\Sales\Model\Order\Config $orderConfig,
         array $data = []
     ) {
         $this->orderCollectionFactory = $orderCollectionFactory;
         $this->helper = $helper;
         $this->orderRepository = $orderRepository;
-        $this->productRepository = $productRepository;
         $this->rmaCollectionFactory = $rmaCollectionFactory;
+        $this->listStatus = $listStatus;
+        $this->orderConfig = $orderConfig;
         parent::__construct(
             $context,
             $customerSession,
@@ -90,64 +103,67 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @return \Magento\Sales\Model\ResourceModel\Order\Collection
+     * @return bool|\Magento\Sales\Model\ResourceModel\Order\Collection
      */
-    public function getOrdersCanRequest()
+    public function getOrders()
     {
-        $customerId = $this->customerSession->getCustomer()->getId();
-        // TODO: ALLOWED ORDERS
-//        $options = $this->helper->getConfigAllowedOrders();
-//        $options = explode(',', $options);
-
-        $orders = $this->orderCollectionFactory->create();
-        return $orders->addFieldToSelect('*')
-            ->addFieldToFilter('customer_id', $customerId)
-//            ->addFieldToFilter('status', ['in' => $options])
-            ->setOrder('created_at', 'desc');
-    }
-
-    /**
-     * @param $sku
-     * @return \Magento\Catalog\Api\Data\ProductInterface|null
-     */
-    public function getLoadProductBySku($sku)
-    {
-        try {
-            return $this->productRepository->get($sku);
-        } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-            $this->_logger->error($e->getMessage());
+        if (!($customerId = $this->customerSession->getCustomerId())) {
+            return false;
+        }
+        if (!$this->orders) {
+            $this->orders = $this->orderCollectionFactory->create($customerId)->addFieldToSelect(
+                '*'
+            )->addFieldToFilter(
+                'status',
+                ['in' => $this->orderConfig->getVisibleOnFrontStatuses()]
+            )->setOrder(
+                'created_at',
+                'desc'
+            );
         }
 
-        return null;
+        return $this->orders;
     }
 
     /**
      * @param $id
      * @return \Magento\Sales\Api\Data\OrderInterface
      */
-    public function getLoadOrderById($id)
+    public function getOrderById($id)
     {
         return $this->orderRepository->get($id);
     }
 
     /**
      * @param $orderId
+     * @return string|null
+     */
+    public function getOrderIncrementId($orderId)
+    {
+        return $this->getOrderById($orderId)->getIncrementId();
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order $order
      * @return bool
      */
-    public function isOrderStatusAllowed($orderId)
+    public function isOrderStatusAllowed(\Magento\Sales\Model\Order $order)
     {
-        $order = $this->getLoadOrderById($orderId);
-
         $allowedStatuses = $this->helper->getOrderAllowedStatus();
         $allowedStatuses = explode(',', $allowedStatuses);
-
-        foreach ($allowedStatuses as $status) {
-            if (in_array($order->getStatus(), $allowedStatuses)) {
-                return true;
-            }
+        if (in_array($order->getStatus(), $allowedStatuses)) {
+            return true;
         }
-
         return false;
+    }
+
+    /**
+     * @param $orderId
+     * @return string
+     */
+    public function getOrderUrl($orderId)
+    {
+        return $this->getUrl('sales/order/view', ['order_id' => $orderId]);
     }
 
     /**
@@ -167,5 +183,14 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         $collection = $this->rmaCollectionFactory->create();
         return $collection->addFieldToSelect('*')
             ->addFilter('customer_id', $customerId, 'like');
+    }
+
+    /**
+     * @param $option
+     * @return mixed
+     */
+    public function getStatusLabel($option)
+    {
+        return $this->listStatus->toOptionArray()[$option]['label'];
     }
 }

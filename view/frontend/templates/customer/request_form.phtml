@@ -9,41 +9,40 @@
 ?>
 <?php /** @var $block \Cap\CustomerRequest\Block\Customer\Dashboard */ ?>
 
-<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
-<?php $ordersCollection = $block->getOrdersCanRequest(); ?>
+<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data') ?>
+<?php $ordersCollection = $block->getOrders() ?>
 
 <?php if ($ordersCollection && count($ordersCollection)): ?>
     <?php $jsIncrementIds = []; ?>
     <?php /** @var \Magento\Sales\Model\Order $order */ ?>
     <?php foreach ($ordersCollection as $order): ?>
-        <?php if ($block->isOrderStatusAllowed($order->getId())): ?>
-            <?php $order = $block->getLoadOrderById($order->getId()); ?>
+        <?php if ($block->isOrderStatusAllowed($order)): ?>
             <?php $jsIncrementIds[] = $order->getIncrementId(); // Js variable to differentiate each popup modal ?>
 
             <?php // modal trigger ?>
             <a href="#" id="modal-trigger-order-<?php echo $order->getIncrementId(); ?>">
-                <?php echo $order->getIncrementId(); ?>
+                <?php echo $order->getIncrementId() ?>
             </a>
 
             <?php // modal content ?>
-            <div id="popup-modal-<?php echo $order->getIncrementId();?>">
-
-                <?php $orderItems = $order->getAllVisibleItems();?>
-                <form id="rma-form-<?php echo $order->getIncrementId();?>"
-                      action="<?php echo $block->getFormAction();?>"
+            <div id="popup-modal-<?php echo $order->getIncrementId() ?>">
+                <?php $items = $order->getAllVisibleItems() ?>
+                <form id="rma-form-<?php echo $order->getIncrementId() ?>"
+                      action="<?php echo $block->getFormAction() ?>"
                       method="post"
                       data-mage-init='{"validation":{}}'>
 
-                    <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey();?>">
-                    <input type="hidden" name="orderId[]" value="<?php echo $order->getId();?>">
+                    <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey() ?>">
+                    <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
                     <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId();?>">
 
                     <fieldset class="fieldset create stock-request">
-                        <?php foreach ($orderItems as $item): ?>
+
+                        <?php /** @var \Magento\Catalog\Model\Product $product */ ?>
+                        <?php foreach ($items as $product): ?>
                             <?php // todo: simple, bundle etc... ?>
-                            <?php if ($item->getProductType() == 'configurable'): ?>
-                                <?php $sku = $item->getProductOptions()['simple_sku']; ?>
-                                <?php $product = $block->getLoadProductBySku($sku); ?>
+                            <?php if ($product->getProductType() == 'configurable'): ?>
+                                <?php $sku = $product->getProductOptions()['simple_sku'] ?>
                                 <div class="field option required">
                                     <label for="orderItem[]"><?php echo $product->getName(); ?></label>
                                     <input type="checkbox" name="orderItem[]" id="order-item-<?php echo $product->getId(); ?>">
@@ -55,9 +54,9 @@
 
                     </fieldset>
                 </form>
-
             </div>
         <?php endif; ?>
+
     <?php endforeach; ?>
 <?php else: ?>
     <div class="message error">
@@ -83,7 +82,6 @@
                     text: $.mage.__('Submit'),
                     class: 'action primary',
                     click: function () {
-                        // this.closeModal();
                         form.find('button[type="submit"]').click();
                     }
                 }]

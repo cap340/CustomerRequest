@@ -76,7 +76,7 @@ class StockRequestForm extends \Magento\Framework\App\Action\Action
                 $model->setCustomerName($post['customerName']);
                 $model->setCustomerEmail($post['customerEmail']);
                 $model->setComment($post['comment']);
-                $model->setStatus(\Cap\CustomerRequest\Model\Stock\Status::STATUS_PENDING);
+                $model->setStatus(\Cap\CustomerRequest\Model\Stock\ListStatus::STATUS_PENDING);
                 $model->save();
 
                 $this->helper->saveProductImage($product->getImage(), 200);
