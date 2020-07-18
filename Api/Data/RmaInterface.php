@@ -9,9 +9,13 @@ namespace Cap\CustomerRequest\Api\Data;
 interface RmaInterface
 {
     const ENTITY_ID = 'entity_id';
-    const PRODUCT_ID = 'product_id';
     const ORDER_ID = 'order_id';
     const CUSTOMER_ID = 'customer_id';
+    const PRODUCTS_SKU = 'products_sku';
+    const STATUS = 'status';
+    const COMMENT = 'comment';
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
 
     /**
      * Get entity_id
@@ -27,21 +31,6 @@ interface RmaInterface
      * @return \Cap\CustomerRequest\Api\Data\RmaInterface
      */
     public function setEntityId($id);
-
-    /**
-     * Get product_id
-     *
-     * @return string|null
-     */
-    public function getProductId();
-
-    /**
-     * Set product_id
-     *
-     * @param string $productId
-     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
-     */
-    public function setProductId($productId);
 
     /**
      * Get order_id
@@ -72,4 +61,79 @@ interface RmaInterface
      * @return \Cap\CustomerRequest\Api\Data\RmaInterface
      */
     public function setCustomerId($customerId);
+
+    /**
+     * Get products_sku
+     *
+     * @return string|null
+     */
+    public function getProductsSku();
+
+    /**
+     * Set products_sku
+     *
+     * @param string $productsSku
+     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
+     */
+    public function setProductsSku($productsSku);
+
+    /**
+     * Get status
+     *
+     * @return string|null
+     */
+    public function getStatus();
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
+     */
+    public function setStatus($status);
+
+    /**
+     * Get status
+     *
+     * @return string|null
+     */
+    public function getComment();
+
+    /**
+     * Set status
+     *
+     * @param string $comment
+     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
+     */
+    public function setComment($comment);
+
+    /**
+     * Get created_at
+     *
+     * @return string|null
+     */
+    public function getCreatedAt();
+
+    /**
+     * Set created_at
+     *
+     * @param string $createdAt
+     * @return \Cap\CustomerRequest\Api\Data\StockInterface
+     */
+    public function setCreatedAt($createdAt);
+
+    /**
+     * Get updated_at
+     *
+     * @return string|null
+     */
+    public function getUpdatedAt();
+
+    /**
+     * Set updated_at
+     *
+     * @param string $updatedAt
+     * @return \Cap\CustomerRequest\Api\Data\StockInterface
+     */
+    public function setUpdatedAt($updatedAt);
 }

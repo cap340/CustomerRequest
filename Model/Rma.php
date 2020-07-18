@@ -34,27 +34,6 @@ class Rma extends \Magento\Framework\Model\AbstractModel implements RmaInterface
     }
 
     /**
-     * Get product_id
-     *
-     * @return string
-     */
-    public function getProductId()
-    {
-        return $this->getData(self::PRODUCT_ID);
-    }
-
-    /**
-     * Set product_id
-     *
-     * @param string $productId
-     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
-     */
-    public function setProductId($productId)
-    {
-        return $this->setData(self::PRODUCT_ID, $productId);
-    }
-
-    /**
      * Get order_id
      *
      * @return string
@@ -94,6 +73,103 @@ class Rma extends \Magento\Framework\Model\AbstractModel implements RmaInterface
     public function setCustomerId($customerId)
     {
         return $this->setData(self::CUSTOMER_ID, $customerId);
+    }
+
+    /**
+     * Get products_sku
+     *
+     * @return string
+     */
+    public function getProductsSku()
+    {
+        return $this->getData(self::PRODUCTS_SKU);
+    }
+
+    /**
+     * Set products_sku
+     *
+     * @param string $productsSku
+     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
+     */
+    public function setProductsSku($productsSku)
+    {
+        return $this->setData(self::PRODUCTS_SKU, $productsSku);
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->getData(self::STATUS);
+    }
+
+    /**
+     * @param string $status
+     * @return RmaInterface|Rma
+     */
+    public function setStatus($status)
+    {
+        return $this->setData(self::STATUS, $status);
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->getData(self::COMMENT);
+    }
+
+    /**
+     * @param string $comment
+     * @return RmaInterface|Rma
+     */
+    public function setComment($comment)
+    {
+        return $this->setData(self::COMMENT, $comment);
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return string
+     */
+    public function getCreatedAt()
+    {
+        return $this->getData(self::CREATED_AT);
+    }
+
+    /**
+     * @param string $createdAt
+     * @return \Cap\CustomerRequest\Api\Data\StockInterface|Rma
+     */
+    public function setCreatedAt($createdAt)
+    {
+        return $this->setData(self::CREATED_AT, $createdAt);
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return string
+     */
+    public function getUpdatedAt()
+    {
+        return $this->getData(self::UPDATED_AT);
+    }
+
+    /**
+     * @param string $updatedAt
+     * @return \Cap\CustomerRequest\Api\Data\StockInterface|Rma
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        return $this->setData(self::UPDATED_AT, $updatedAt);
     }
 
     /**
