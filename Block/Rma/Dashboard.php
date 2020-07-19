@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace Cap\CustomerRequest\Block\Customer;
+namespace Cap\CustomerRequest\Block\Rma;
 
 class Dashboard extends \Magento\Customer\Block\Account\Dashboard
 {
@@ -208,7 +208,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
      */
     public function getFormAction()
     {
-        return '/cap_customer_request/customer/rmarequestform';
+        return '/cap_customer_request/rma/form';
     }
 
     /**

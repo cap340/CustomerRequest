@@ -4,9 +4,9 @@
  * See COPYING.txt for license details.
  */
 
-namespace Cap\CustomerRequest\Controller\Customer;
+namespace Cap\CustomerRequest\Controller\Rma;
 
-class RmaRequestForm extends \Magento\Framework\App\Action\Action
+class Form extends \Magento\Framework\App\Action\Action
 {
     /**
      * @var \Cap\CustomerRequest\Model\RmaFactory

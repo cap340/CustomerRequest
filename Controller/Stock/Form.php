@@ -4,9 +4,9 @@
  * See COPYING.txt for license details.
  */
 
-namespace Cap\CustomerRequest\Controller\Product;
+namespace Cap\CustomerRequest\Controller\Stock;
 
-class StockRequestForm extends \Magento\Framework\App\Action\Action
+class Form extends \Magento\Framework\App\Action\Action
 {
     /**
      * @var \Cap\CustomerRequest\Helper\Data

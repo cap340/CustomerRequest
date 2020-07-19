@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace Cap\CustomerRequest\Block\Product;
+namespace Cap\CustomerRequest\Block\Stock;
 
 class View extends \Magento\Catalog\Block\Product\View
 {
@@ -95,7 +95,7 @@ class View extends \Magento\Catalog\Block\Product\View
      */
     public function getFormAction()
     {
-        return '/cap_customer_request/product/stockrequestform';
+        return '/cap_customer_request/stock/form';
     }
 
     /**

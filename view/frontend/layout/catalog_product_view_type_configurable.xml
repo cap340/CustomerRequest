@@ -6,15 +6,12 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <css src="Cap_CustomerRequest::css/cap_customer_request.css"/>
-    </head>
     <body>
         <referenceContainer name="product.info.extrahint">
-            <block class="Cap\CustomerRequest\Block\Product\View" name="cap.customer.request.stock.link" template="product/configurable/stock_link.phtml" after="-"/>
+            <block class="Cap\CustomerRequest\Block\Stock\View" name="cap.customer.request.stock.link" template="stock/link.phtml" after="-"/>
         </referenceContainer>
         <referenceContainer name="before.body.end">
-            <block class="Cap\CustomerRequest\Block\Product\View" name="cap.customer.request.stock.form" template="product/configurable/stock_form.phtml"/>
+            <block class="Cap\CustomerRequest\Block\Stock\View" name="cap.customer.request.stock.form" template="stock/form.phtml"/>
         </referenceContainer>
     </body>
 </page>

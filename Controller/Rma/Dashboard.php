@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace Cap\CustomerRequest\Controller\Customer;
+namespace Cap\CustomerRequest\Controller\Rma;
 
 class Dashboard extends \Magento\Framework\App\Action\Action
 {
