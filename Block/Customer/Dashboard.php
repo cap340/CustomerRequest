@@ -6,8 +6,6 @@
 
 namespace Cap\CustomerRequest\Block\Customer;
 
-use Magento\Framework\Exception\NoSuchEntityException;
-
 class Dashboard extends \Magento\Customer\Block\Account\Dashboard
 {
     /**
@@ -105,7 +103,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     /**
      * @return bool|\Magento\Sales\Model\ResourceModel\Order\Collection
      */
-    public function getOrders()
+    public function getCustomerOrders()
     {
         if (!($customerId = $this->customerSession->getCustomerId())) {
             return false;
@@ -135,15 +133,6 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * @param $orderId
-     * @return string|null
-     */
-    public function getOrderIncrementId($orderId)
-    {
-        return $this->getOrderById($orderId)->getIncrementId();
-    }
-
-    /**
      * @param \Magento\Sales\Model\Order $order
      * @return bool
      */
@@ -164,6 +153,46 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     public function getOrderUrl($orderId)
     {
         return $this->getUrl('sales/order/view', ['order_id' => $orderId]);
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order $order
+     * @return array
+     */
+    public function getOrderItems(\Magento\Sales\Model\Order $order)
+    {
+        $confTypeCode = \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE;
+        $simpleTypeCode = \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE;
+
+        $items = $order->getAllVisibleItems();
+        $data = [];
+
+        foreach ($items as $key => $item) {
+            if ($item->getProductType() == $confTypeCode) {
+                $productOptions = $item->getProductOptions();
+                $attributes = $productOptions['attributes_info'];
+                $data[$key] = [
+                    'sku' => $productOptions['simple_sku'],
+                    'fullName' => $productOptions['simple_name'],
+                    'name' => $item->getName(), // configurable name
+                ];
+
+                $arr = [];
+                foreach ($attributes as $attribute) { // product options
+                    $arr[] = $attribute['value'];
+                }
+
+                $data[$key]['attribute'][] = implode(', ', $arr);
+
+            } elseif ($item->getProductType() == $simpleTypeCode) {
+                $data[] = [
+                    'sku' => $item->getSku(),
+                    'name' => $item->getName()
+                ];
+            }
+        }
+
+        return $data;
     }
 
     /**
