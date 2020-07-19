@@ -12,29 +12,30 @@
 <?php $customerId = $block->getCustomer()->getId() ?>
 <?php $collection = $block->getRmaCustomerHistory($customerId) ?>
 
-<div class="page-title-wrapper">
-    <h1><?php /* @escapeNotVerified */ echo __('My Requests') ?></h1>
-    <?php if ($collection && count($collection)): ?>
-
-        <div class="table-wrapper orders-history">
-            <table class="data table table-order-items history" id="my-orders-table">
-                <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Requests') ?></caption>
+<div class="block block-dashboard-returns">
+    <div class="block-title order">
+        <strong><?php /* @escapeNotVerified */ echo __('My Returns') ?></strong>
+    </div>
+    <div class="table-wrapper returns-history">
+        <?php if ($collection && count($collection)): ?>
+            <table class="data table table-return-items history" id="my-returns-table">
+                <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Return') ?></caption>
                 <thead>
                 <tr>
-                    <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Request #') ?></th>
+                    <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Return #') ?></th>
                     <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
-                    <th scope="col" class="col shipping"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
+                    <th scope="col" class="col order"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
                     <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
-                    <th scope="col" class="col actions">&nbsp;</th>
+                    <th scope="col" class="col actions"><?php /* @escapeNotVerified */ echo __('Action') ?></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php /** @var \Cap\CustomerRequest\Model\Rma $item */ ?>
                 <?php foreach ($collection as $item): ?>
                     <tr>
-                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $item->getEntityId() ?></td>
-                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $item->getCreatedAt() ?></td>
-                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id">
+                        <td data-th="<?php echo $block->escapeHtml(__('Return #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $item->getEntityId() ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($item->getCreatedAt()) ?></td>
+                        <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col order">
                             <a href="<?php echo $block->getOrderUrl($item->getOrderId()) ?>"><?php /* @escapeNotVerified */ echo $block->getOrderIncrementId($item->getOrderId()) ?></a>
                         </td>
                         <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $block->getStatusLabel($item->getStatus()) ?></td>
@@ -48,13 +49,11 @@
                 <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
-
-        <?php // todo: PAGER ?>
-
-    <?php else: ?>
-        <div class="message info empty">
-            <?= /* @escapeNotVerified */ __('You have no request.') ?>
-        </div>
-    <?php endif; ?>
+            <?php // TODO: pager ?>
+        <?php else: ?>
+            <div class="message info empty">
+                <?= /* @escapeNotVerified */ __('You have no request.') ?>
+            </div>
+        <?php endif; ?>
+    </div>
 </div>

@@ -11,7 +11,7 @@
             <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-cap-customer-request" after="-">
                 <arguments>
                     <argument name="path" xsi:type="string">cap_customer_request/customer/dashboard</argument>
-                    <argument name="label" xsi:type="string">Return Request</argument>
+                    <argument name="label" xsi:type="string" translate="true">My Returns</argument>
                 </arguments>
             </block>
         </referenceBlock>

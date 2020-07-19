@@ -11,58 +11,89 @@
 
 <?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data') ?>
 <?php $ordersCollection = $block->getOrders() ?>
+<?php $jsIncrementIds = []; ?>
 
-<?php if ($ordersCollection && count($ordersCollection)): ?>
-    <?php $jsIncrementIds = []; ?>
-    <?php /** @var \Magento\Sales\Model\Order $order */ ?>
-    <?php foreach ($ordersCollection as $order): ?>
-        <?php if ($block->isOrderStatusAllowed($order)): ?>
-            <?php $jsIncrementIds[] = $order->getIncrementId(); // Js variable to differentiate each popup modal ?>
+<div class="block block-dashboard-orders">
+    <div class="block-title order">
+        <strong><?php /* @escapeNotVerified */ echo __('My Orders') ?></strong>
+        <?php $conditionsLink = $block->getUrl($helper->getRmaConditionsLink()) ?>
+        <span class="subtitle">(<?php /* @escapeNotVerified */ echo __('that meet the %1return conditions%2', '<a href="' . $conditionsLink .'">', '</a>') ?>)</span>
+    </div>
+    <div class="table-wrapper orders-history">
+        <?php if ($ordersCollection && count($ordersCollection)): ?>
+            <table class="data table table-order-items history" id="my-orders-table">
+                <caption class="table-caption"><?php /* @escapeNotVerified */ echo __('Order #') ?></caption>
+                <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php /* @escapeNotVerified */ echo __('Order #') ?></th>
+                    <th scope="col" class="col date"><?php /* @escapeNotVerified */ echo __('Date') ?></th>
+                    <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Order Total') ?></th>
+                    <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Status') ?></th>
+                    <th scope="col" class="col actions"><?php /* @escapeNotVerified */ echo __('Action') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php /** @var \Magento\Sales\Model\Order $order */ ?>
+                <?php foreach ($ordersCollection as $order): ?>
+                    <?php if ($block->isOrderStatusAllowed($order)): ?>
+                        <?php $jsIncrementIds[] = $order->getIncrementId(); // Js variable to differentiate each popup modal ?>
+                        <tr>
+                            <td data-th="<?php echo $block->escapeHtml(__('Order #')) ?>" class="col id"><?php /* @escapeNotVerified */ echo $order->getIncrementId() ?></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php /* @escapeNotVerified */ echo $block->formatDate($order->getCreatedAt()) ?></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $order->formatPrice($order->getGrandTotal()) ?></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $order->getStatusLabel() ?></td>
+                            <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                                <?php // modal trigger ?>
+                                <a href="#" id="modal-trigger-order-<?php echo $order->getIncrementId(); ?>" class="action view">
+                                    <span><?php /* @escapeNotVerified */ echo __('Return') ?></span>
+                                </a>
+                                <?php // modal content ?>
+                                <div id="popup-modal-<?php echo $order->getIncrementId() ?>">
+                                    <?php $items = $order->getAllVisibleItems() ?>
+                                    <form id="rma-form-<?php echo $order->getIncrementId() ?>"
+                                          action="<?php echo $block->getFormAction() ?>"
+                                          method="post"
+                                          data-mage-init='{"validation":{}}'>
 
-            <?php // modal trigger ?>
-            <a href="#" id="modal-trigger-order-<?php echo $order->getIncrementId(); ?>">
-                <?php echo $order->getIncrementId() ?>
-            </a>
+                                        <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey() ?>">
+                                        <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
+                                        <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId() ?>">
 
-            <?php // modal content ?>
-            <div id="popup-modal-<?php echo $order->getIncrementId() ?>">
-                <?php $items = $order->getAllVisibleItems() ?>
-                <form id="rma-form-<?php echo $order->getIncrementId() ?>"
-                      action="<?php echo $block->getFormAction() ?>"
-                      method="post"
-                      data-mage-init='{"validation":{}}'>
+                                        <fieldset class="fieldset create stock-request">
 
-                    <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey() ?>">
-                    <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
-                    <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId();?>">
+                                            <?php /** @var \Magento\Catalog\Model\Product $product */ ?>
+                                            <?php foreach ($items as $product): ?>
+                                                <?php // todo: simple, bundle etc... ?>
+                                                <?php if ($product->getProductType() == 'configurable'): ?>
+                                                    <?php $sku = $product->getProductOptions()['simple_sku'] ?>
+                                                    <div class="field">
+                                                        <input type="checkbox" id="order-item-<?php echo $product->getId() ?>" name="orderItem[]">
+                                                        <label for="orderItem[]"><?php echo $product->getName() ?></label>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
 
-                    <fieldset class="fieldset create stock-request">
+                                            <button type="submit" name="submit[]" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
 
-                        <?php /** @var \Magento\Catalog\Model\Product $product */ ?>
-                        <?php foreach ($items as $product): ?>
-                            <?php // todo: simple, bundle etc... ?>
-                            <?php if ($product->getProductType() == 'configurable'): ?>
-                                <?php $sku = $product->getProductOptions()['simple_sku'] ?>
-                                <div class="field option required">
-                                    <label for="orderItem[]"><?php echo $product->getName(); ?></label>
-                                    <input type="checkbox" name="orderItem[]" id="order-item-<?php echo $product->getId(); ?>">
+                                        </fieldset>
+                                    </form>
                                 </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-
-                        <button type="submit" name="submit[]" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
-
-                    </fieldset>
-                </form>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php if ($block->getPagerHtml()): ?>
+                <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+            <?php endif ?>
+        <?php else: ?>
+            <div class="message info empty">
+                <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return policy%2.', '<a href="' . $block->getUrl($helper->getConfigRmaPolicyLink()) .'">', '</a>') ?>
             </div>
         <?php endif; ?>
-
-    <?php endforeach; ?>
-<?php else: ?>
-    <div class="message error">
-        <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return policy%2.', '<a href="' . $block->getUrl($helper->getConfigRmaPolicyLink()) .'">', '</a>') ?>
     </div>
-<?php endif; ?>
+</div>
 
 <script>
     require([
@@ -77,7 +108,7 @@
                 responsive: true,
                 innerScroll: true,
                 title: 'Order: '+id,
-                modalClass: 'cap-request-modal',
+                modalClass: 'cap-customer-request-modal',
                 buttons: [{
                     text: $.mage.__('Submit'),
                     class: 'action primary',

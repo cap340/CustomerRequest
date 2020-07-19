@@ -21,7 +21,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * Rma request configuration
      */
     const XML_PATH_RMA_REQUEST_IS_ENABLED = 'cap_customer_request/rma/enable';
-    const XML_PATH_RMA_RETURN_POLICY_LINK = 'cap_customer_request/rma/return_policy_link';
+    const XML_PATH_RMA_CONDITIONS_LINK = 'cap_customer_request/rma/conditions_link';
     const XML_PATH_RMA_ALLOWED_STATUS = 'cap_customer_request/rma/allowed_orders';
 
     /**
@@ -113,6 +113,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         );
     }
 
+    // TODO: method names without Config
+
     /**
      * @return mixed
      */
@@ -127,10 +129,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return mixed
      */
-    public function getConfigRmaPolicyLink()
+    public function getRmaConditionsLink()
     {
         return $this->scopeConfig->getValue(
-            self::XML_PATH_RMA_RETURN_POLICY_LINK,
+            self::XML_PATH_RMA_CONDITIONS_LINK,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
