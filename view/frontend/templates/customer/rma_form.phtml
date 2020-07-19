@@ -49,6 +49,9 @@
                                 <?php // modal content ?>
                                 <div id="popup-modal-<?php echo $order->getIncrementId() ?>">
                                     <?php $items = $block->getOrderItems($order) ?>
+
+                                    <h3><?php echo __('Please select one or more product(s)') ?></h3>
+
                                     <form id="rma-form-<?php echo $order->getIncrementId() ?>"
                                           action="<?php echo $block->getFormAction() ?>"
                                           method="post"
@@ -59,11 +62,10 @@
                                             <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
                                             <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId() ?>">
 
-                                            <h4><?php echo __('Please select one or more product(s)') ?></h4>
                                             <?php foreach ($items as $key => $item): ?>
                                                 <?php $html = '<strong>' . $item['sku'] . '</strong><br>' ?>
                                                 <?php $html .= $item['name'] . ' | ' . $item['attributes'] ?>
-                                                <div>
+                                                <div class="field product">
                                                     <input type="checkbox" id="order-item-<?php echo $item['sku'] ?>" name="orderItem[]">
                                                     <label for="orderItem[]"><?php echo $html ?></label>
                                                 </div>
@@ -105,7 +107,7 @@
                 type: 'popup',
                 responsive: true,
                 innerScroll: true,
-                title: 'Order: '+id,
+                title: 'Order <span class="subtitle">'+id+'</span>',
                 modalClass: 'cap-customer-request-modal',
                 buttons: [{
                     text: $.mage.__('Submit'),

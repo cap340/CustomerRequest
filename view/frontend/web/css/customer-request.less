@@ -17,11 +17,33 @@
     .modal-inner-wrap {
         max-width: @modal-popup-request-form__max-width;
 
+        .modal-header {
+            .modal-title .subtitle {
+                font-size: 1.8rem;
+            }
+        }
+
         .modal-content {
+            h3 {
+                font-weight: 400;
+                font-size: 1.7rem;
+                margin-bottom: 2rem;
+            }
+
             .fieldset.create {
                 .hidden-button {
                     display: none;
                 }
+
+                .field.product {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .rma-popup-message {
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #ccc;
             }
         }
     }
