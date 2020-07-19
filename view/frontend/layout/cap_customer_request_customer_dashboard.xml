@@ -14,9 +14,9 @@
             </action>
         </referenceBlock>
         <referenceContainer name="content">
-            <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.dashboard" template="customer/dashboard.phtml">
-                <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.form" template="customer/request_form.phtml"/>
-                <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.history" template="customer/request_history.phtml"/>
+            <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.rma.dashboard" template="customer/rma_dashboard.phtml">
+                <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.rma.form" template="customer/rma_form.phtml"/>
+                <block class="Cap\CustomerRequest\Block\Customer\Dashboard" name="cap.customer.request.rma.history" template="customer/rma_history.phtml"/>
             </block>
         </referenceContainer>
     </body>

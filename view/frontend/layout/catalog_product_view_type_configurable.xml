@@ -9,16 +9,12 @@
     <head>
         <css src="Cap_CustomerRequest::css/cap_customer_request.css"/>
     </head>
-
     <body>
-        <referenceContainer name="before.body.end">
-            <block class="Cap\CustomerRequest\Block\Product\View" name="cap.request.stock.form"
-                   template="product/configurable/request_form.phtml"/>
-        </referenceContainer>
-
         <referenceContainer name="product.info.extrahint">
-            <block class="Cap\CustomerRequest\Block\Product\View" name="cap.request.stock.link"
-                   template="product/configurable/request_link.phtml" after="-"/>
+            <block class="Cap\CustomerRequest\Block\Product\View" name="cap.customer.request.stock.link" template="product/configurable/stock_link.phtml" after="-"/>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Cap\CustomerRequest\Block\Product\View" name="cap.customer.request.stock.form" template="product/configurable/stock_form.phtml"/>
         </referenceContainer>
     </body>
 </page>

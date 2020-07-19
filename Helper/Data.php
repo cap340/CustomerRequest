@@ -8,19 +8,18 @@ namespace Cap\CustomerRequest\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const XML_PATH_MODULE_IS_ENABLED = 'cap_customer_request/general/enable';
+    const XML_PATH_MODULE_ENABLED = 'cap_customer_request/general/enable';
     const REQUEST_MEDIA_DIR = 'customer_request/product';
-
     /**
      * Stock request configuration
      */
-    const XML_PATH_STOCK_REQUEST_IS_ENABLED = 'cap_customer_request/stock/enable';
+    const XML_PATH_STOCK_REQUEST_ENABLED = 'cap_customer_request/stock/enable';
     const XML_PATH_STOCK_ATTRIBUTES_SORTING_ORDER = 'cap_customer_request/stock/attributes_sorting_order';
     const XML_PATH_STOCK_COMMENT = 'cap_customer_request/stock/comment';
     /**
      * Rma request configuration
      */
-    const XML_PATH_RMA_REQUEST_IS_ENABLED = 'cap_customer_request/rma/enable';
+    const XML_PATH_RMA_REQUEST_ENABLED = 'cap_customer_request/rma/enable';
     const XML_PATH_RMA_CONDITIONS_LINK = 'cap_customer_request/rma/conditions_link';
     const XML_PATH_RMA_ALLOWED_STATUS = 'cap_customer_request/rma/allowed_orders';
 
@@ -86,7 +85,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function isModuleEnabled()
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_MODULE_IS_ENABLED,
+            self::XML_PATH_MODULE_ENABLED,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -97,7 +96,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function isStockRequestEnabled()
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_STOCK_REQUEST_IS_ENABLED,
+            self::XML_PATH_STOCK_REQUEST_ENABLED,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
@@ -105,20 +104,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return bool
      */
-    public function isReturnRequestEnabled()
+    public function isRmaRequestEnabled()
     {
         return $this->scopeConfig->isSetFlag(
-            self::XML_PATH_RMA_REQUEST_IS_ENABLED,
+            self::XML_PATH_RMA_REQUEST_ENABLED,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }
 
-    // TODO: method names without Config
-
     /**
      * @return mixed
      */
-    public function getConfigStockComment()
+    public function getStockComment()
     {
         return $this->scopeConfig->getValue(
             self::XML_PATH_STOCK_COMMENT,
@@ -155,7 +152,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @return array
      */
-    public function getConfigAttributesSortingOrder()
+    public function getAttributesSortingOrder()
     {
         $rawValue = $this->scopeConfig->getValue(
             self::XML_PATH_STOCK_ATTRIBUTES_SORTING_ORDER,

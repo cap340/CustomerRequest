@@ -1,13 +1,10 @@
 ## Todo
-
-- Maintenance Mode (cf backup)
 - Send Email
   - Template / i18n
 - Admin grid
   - Print Button
 - ACL
-- CRON
-  - Delete unused request media
+- Remove stock request saved image on request delete action
 - RMA Pager
 - Mageplaza google ReCAPTCHA message
   

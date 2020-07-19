@@ -95,7 +95,7 @@ class View extends \Magento\Catalog\Block\Product\View
      */
     public function getConfigurableAttributes()
     {
-        $order = $this->helper->getConfigAttributesSortingOrder();
+        $order = $this->helper->getAttributesSortingOrder();
         $attributes = $this->getProduct()->getTypeInstance()->getUsedProductAttributes($this->getProduct());
 
         usort($attributes, function ($a, $b) use ($order) {

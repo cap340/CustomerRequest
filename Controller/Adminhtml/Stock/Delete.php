@@ -22,6 +22,8 @@ class Delete extends \Cap\CustomerRequest\Controller\Adminhtml\Stock
             try {
                 $model = $this->_objectManager->create(\Cap\CustomerRequest\Model\Stock::class);
                 $model->load($id);
+
+                // TODO: Delete saved image for the request
                 $model->delete();
 
                 $this->messageManager->addSuccessMessage(__('You deleted the request #%1.', $id));

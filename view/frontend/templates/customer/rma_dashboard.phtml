@@ -11,10 +11,10 @@
 
 <?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
 
-<?php if ($block->isloggedIn() && $helper->isReturnRequestEnabled()): ?>
+<?php if ($block->isloggedIn() && $helper->isRmaRequestEnabled()): ?>
 
-    <?php echo $block->getChildHtml('cap.customer.request.form') ;?>
-    <?php echo $block->getChildHtml('cap.customer.request.history') ;?>
+    <?php echo $block->getChildHtml('cap.customer.request.rma.form') ;?>
+    <?php echo $block->getChildHtml('cap.customer.request.rma.history') ;?>
 
 <?php else: ?>
     <div class="message error">
