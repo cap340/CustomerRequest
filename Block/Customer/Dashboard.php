@@ -182,7 +182,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
                     $arr[] = $attribute['value'];
                 }
 
-                $data[$key]['attribute'][] = implode(', ', $arr);
+                $data[$key]['attributes'] = implode(' ', $arr);
 
             } elseif ($item->getProductType() == $simpleTypeCode) {
                 $data[] = [

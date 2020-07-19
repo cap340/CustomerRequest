@@ -49,29 +49,28 @@
                                 </a>
                                 <?php // modal content ?>
                                 <div id="popup-modal-<?php echo $order->getIncrementId() ?>">
-                                    <?php $items = $order->getAllVisibleItems() ?>
+                                    <?php $items = $block->getOrderItems($order) ?>
                                     <form id="rma-form-<?php echo $order->getIncrementId() ?>"
                                           action="<?php echo $block->getFormAction() ?>"
                                           method="post"
                                           data-mage-init='{"validation":{}}'>
-
-                                        <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey() ?>">
-                                        <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
-                                        <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId() ?>">
-
                                         <fieldset class="fieldset create stock-request">
 
-                                            <?php /** @var \Magento\Catalog\Model\Product $product */ ?>
-                                            <?php foreach ($items as $product): ?>
-                                                <?php // todo: simple, bundle etc... ?>
-                                                <?php if ($product->getProductType() == 'configurable'): ?>
-                                                    <?php $sku = $product->getProductOptions()['simple_sku'] ?>
-                                                    <div class="field">
-                                                        <input type="checkbox" id="order-item-<?php echo $product->getId() ?>" name="orderItem[]">
-                                                        <label for="orderItem[]"><?php echo $product->getName() ?></label>
-                                                    </div>
-                                                <?php endif; ?>
+                                            <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey() ?>">
+                                            <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
+                                            <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId() ?>">
+
+                                            <h4><?php echo __('Please select one or more product(s)') ?></h4>
+                                            <?php foreach ($items as $key => $item): ?>
+                                                <?php $html = '<strong>' . $item['sku'] . '</strong><br>' ?>
+                                                <?php $html .= $item['name'] . ' | ' . $item['attributes'] ?>
+                                                <div>
+                                                    <input type="checkbox" id="order-item-<?php echo $item['sku'] ?>" name="orderItem[]">
+                                                    <label for="orderItem[]"><?php echo $html ?></label>
+                                                </div>
                                             <?php endforeach; ?>
+
+                                            <?php // todo: form bottom message in config ?>
 
                                             <button type="submit" name="submit[]" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
 
