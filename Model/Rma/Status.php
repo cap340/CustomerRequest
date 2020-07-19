@@ -6,7 +6,7 @@
 
 namespace Cap\CustomerRequest\Model\Rma;
 
-class ListStatus implements \Magento\Framework\Data\OptionSourceInterface
+class Status implements \Magento\Framework\Data\OptionSourceInterface
 {
     /**
      * Rma Request Status

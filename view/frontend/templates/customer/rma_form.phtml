@@ -69,7 +69,17 @@
                                                     <input type="checkbox" id="order-item-<?php echo $item['sku'] ?>" name="orderItem[]">
                                                     <label for="orderItem[]"><?php echo $html ?></label>
                                                 </div>
+                                                <div class="field rma-type">
+                                                    <?php // todo: get all types & loop for radio button (only one choice) | css float right ?>
+                                                    <input type="checkbox" id="rma-type-<?php echo $item['sku'] ?>" name="orderItem[]">
+                                                    <label for="orderRefund[]">refund</label>
+                                                </div>
                                             <?php endforeach; ?>
+
+                                            <?php // todo: customer comment textarea ?>
+                                            <div class="field comment">
+                                                <textarea></textarea>
+                                            </div>
 
                                             <button type="submit" name="submit[]" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
 

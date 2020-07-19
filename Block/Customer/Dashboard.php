@@ -29,9 +29,9 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     protected $rmaCollectionFactory;
 
     /**
-     * @var \Cap\CustomerRequest\Model\Rma\ListStatus
+     * @var \Cap\CustomerRequest\Model\Rma\Status
      */
-    protected $listStatus;
+    protected $status;
 
     /**
      * @var \Magento\Sales\Model\Order\Config
@@ -55,7 +55,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
      * @param \Cap\CustomerRequest\Helper\Data $helper
      * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      * @param \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory $rmaCollectionFactory
-     * @param \Cap\CustomerRequest\Model\Rma\ListStatus $listStatus
+     * @param \Cap\CustomerRequest\Model\Rma\Status $status
      * @param \Magento\Sales\Model\Order\Config $orderConfig
      * @param array $data
      */
@@ -69,7 +69,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         \Cap\CustomerRequest\Helper\Data $helper,
         \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Cap\CustomerRequest\Model\ResourceModel\Rma\CollectionFactory $rmaCollectionFactory,
-        \Cap\CustomerRequest\Model\Rma\ListStatus $listStatus,
+        \Cap\CustomerRequest\Model\Rma\Status $status,
         \Magento\Sales\Model\Order\Config $orderConfig,
         array $data = []
     ) {
@@ -77,7 +77,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         $this->helper = $helper;
         $this->orderRepository = $orderRepository;
         $this->rmaCollectionFactory = $rmaCollectionFactory;
-        $this->listStatus = $listStatus;
+        $this->status = $status;
         $this->orderConfig = $orderConfig;
         parent::__construct(
             $context,
@@ -228,7 +228,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
      */
     public function getStatusLabel($option)
     {
-        return $this->listStatus->toOptionArray()[$option]['label'];
+        return $this->status->toOptionArray()[$option]['label'];
     }
 
     /**

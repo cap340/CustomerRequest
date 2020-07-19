@@ -62,6 +62,13 @@ class InstallSchema implements \Magento\Framework\Setup\InstallSchemaInterface
             'Request Status'
         );
         $table->addColumn(
+            'type',
+            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            6,
+            ['default' => 0],
+            'Request Type'
+        );
+        $table->addColumn(
             'comment',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,

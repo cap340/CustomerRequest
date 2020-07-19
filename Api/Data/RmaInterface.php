@@ -13,6 +13,7 @@ interface RmaInterface
     const CUSTOMER_ID = 'customer_id';
     const PRODUCTS_SKU = 'products_sku';
     const STATUS = 'status';
+    const TYPE = 'type';
     const COMMENT = 'comment';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -91,6 +92,21 @@ interface RmaInterface
      * @return \Cap\CustomerRequest\Api\Data\RmaInterface
      */
     public function setStatus($status);
+
+    /**
+     * Get type
+     *
+     * @return string|null
+     */
+    public function getType();
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return \Cap\CustomerRequest\Api\Data\RmaInterface
+     */
+    public function setType($type);
 
     /**
      * Get status

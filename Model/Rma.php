@@ -116,6 +116,25 @@ class Rma extends \Magento\Framework\Model\AbstractModel implements RmaInterface
     }
 
     /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->getData(self::TYPE);
+    }
+
+    /**
+     * @param string $type
+     * @return RmaInterface|Rma
+     */
+    public function setType($type)
+    {
+        return $this->setData(self::TYPE, $type);
+    }
+
+    /**
      * Get comment
      *
      * @return string
