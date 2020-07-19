@@ -9,9 +9,7 @@
 ?>
 <?php /** @var $block \Cap\CustomerRequest\Block\Customer\Dashboard */ ?>
 
-<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
-
-<?php if ($block->isloggedIn() && $helper->isRmaRequestEnabled()): ?>
+<?php if ($block->isloggedIn() && $block->isRmaRequestEnabled()): ?>
 
     <?php echo $block->getChildHtml('cap.customer.request.rma.form') ;?>
     <?php echo $block->getChildHtml('cap.customer.request.rma.history') ;?>

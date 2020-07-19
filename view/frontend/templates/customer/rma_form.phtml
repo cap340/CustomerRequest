@@ -9,15 +9,14 @@
 ?>
 <?php /** @var $block \Cap\CustomerRequest\Block\Customer\Dashboard */ ?>
 
-<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data') ?>
 <?php $ordersCollection = $block->getCustomerOrders() ?>
+<?php $conditionsLink = $block->getUrl($block->getRmaConditionsLink()) ?>
 <?php $jsIncrementIds = []; ?>
 
 <div class="block block-dashboard-orders">
     <div class="block-title order">
         <strong><?php /* @escapeNotVerified */ echo __('My Orders') ?></strong>
-        <?php $conditionsLink = $block->getUrl($helper->getRmaConditionsLink()) ?>
-        <span class="subtitle">(<?php /* @escapeNotVerified */ echo __('that meet the %1return conditions%2', '<a href="' . $conditionsLink .'">', '</a>') ?>)</span>
+        <span class="subtitle"><?php /* @escapeNotVerified */ echo __('%1return conditions%2', '<a href="' . $conditionsLink .'">', '</a>') ?></span>
     </div>
     <div class="table-wrapper orders-history">
         <?php if ($ordersCollection && count($ordersCollection)): ?>
@@ -56,7 +55,7 @@
                                           data-mage-init='{"validation":{}}'>
                                         <fieldset class="fieldset create stock-request">
 
-                                            <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey() ?>">
+                                            <input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>">
                                             <input type="hidden" name="orderId[]" value="<?php echo $order->getId() ?>">
                                             <input type="hidden" name="customerId[]" value="<?php echo $block->getCustomer()->getId() ?>">
 
@@ -70,12 +69,12 @@
                                                 </div>
                                             <?php endforeach; ?>
 
-                                            <?php // todo: form bottom message in config ?>
-
                                             <button type="submit" name="submit[]" class="hidden-button"><?php /* @escapeNotVerified */ echo __('Submit') ?></button>
 
                                         </fieldset>
                                     </form>
+
+                                    <div class="rma-popup-message"><?php echo $block->getRmaPopupMessage() ?></div>
                                 </div>
                             </td>
                         </tr>
@@ -88,7 +87,7 @@
             <?php endif ?>
         <?php else: ?>
             <div class="message info empty">
-                <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return policy%2.', '<a href="' . $block->getUrl($helper->getConfigRmaPolicyLink()) .'">', '</a>') ?>
+                <?= /* @escapeNotVerified */ __('You have no orders that meet our %1return conditions%2.', '<a href="' . $conditionsLink .'">', '</a>') ?>
             </div>
         <?php endif; ?>
     </div>

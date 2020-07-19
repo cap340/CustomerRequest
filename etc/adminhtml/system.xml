@@ -7,24 +7,24 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
 	<system>
-		<tab id="cap" sortOrder="400" translate="label">
+		<tab id="cap" translate="label" sortOrder="400">
 			<label>Cap340</label>
 		</tab>
-		<section id="cap_customer_request" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+		<section id="cap_customer_request" translate="label" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
 			<label>Request</label>
 			<tab>cap</tab>
 			<resource>Cap_CustomerRequest::config_cap_customer_request</resource>
-			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<group id="general" translate="label" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
 				<label>General Configuration</label>
-				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+				<field id="enable" type="select" translate="label comment" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
 					<label>Enable Module</label>
 					<comment>Enable Customer Request Module.</comment>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
 				</field>
 			</group>
-			<group id="stock" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
+			<group id="stock" translate="label" sortOrder="20" showInDefault="1" showInStore="1" showInWebsite="1">
 				<label>Stock Customer Request</label>
-				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
 					<label>Enable.</label>
 					<comment>Enable Customer Stock Request.</comment>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -40,16 +40,16 @@
 					</depends>
 				</field>
 				<field id="comment" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Default COmment.</label>
+					<label>Form default comment.</label>
 					<comment><![CDATA[Default form comment. <em>(optional)<em>]]></comment>
 					<depends>
 						<field id="cap_customer_request/stock/enable">1</field>
 					</depends>
 				</field>
 			</group>
-			<group id="rma" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label">
+			<group id="rma" translate="label" sortOrder="30" showInDefault="1" showInStore="1" showInWebsite="1">
 				<label>Return Customer Request</label>
-				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label comment" type="select">
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
 					<label>Enable.</label>
 					<comment>Enable Customer Return Request.</comment>
 					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -57,14 +57,7 @@
 						<field id="cap_customer_request/general/enable">1</field>
 					</depends>
 				</field>
-				<field id="conditions_link" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-					<label>Return Conditions Url.</label>
-					<comment><![CDATA[like <strong>customer-service<strong>.]]></comment>
-					<depends>
-						<field id="cap_customer_request/rma/enable">1</field>
-					</depends>
-				</field>
-				<field id="allowed_orders" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+				<field id="allowed_orders" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Return Allowed Order Status.</label>
 					<comment><![CDATA[Select Order <strong>Statuses</strong> that can apply a request.]]></comment>
 					<source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
@@ -72,8 +65,22 @@
 						<field id="cap_customer_request/rma/enable">1</field>
 					</depends>
 				</field>
+				<field id="conditions_link" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Return Conditions Url.</label>
+					<comment><![CDATA[like <strong>customer-service<strong>.]]></comment>
+					<depends>
+						<field id="cap_customer_request/rma/enable">1</field>
+					</depends>
+				</field>
+				<field id="popup_message" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Popup bottom message.</label>
+					<comment><![CDATA[<em>(optional)<em>]]></comment>
+					<depends>
+						<field id="cap_customer_request/rma/enable">1</field>
+					</depends>
+				</field>
 			</group>
-			<group id="email" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label">
+			<group id="email" translate="label" sortOrder="40" showInDefault="1" showInStore="1" showInWebsite="1">
 				<label>Email Configuration.</label>
 				<field id="admin" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Email Admin Notify.</label>
@@ -83,7 +90,7 @@
 						<field id="cap_customer_request/general/enable">1</field>
 					</depends>
 				</field>
-				<field id="sender" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+				<field id="sender" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Email Admin Sender.</label>
 					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
 					<validate>required-entry</validate>
@@ -91,7 +98,7 @@
 						<field id="cap_customer_request/general/enable">1</field>
 					</depends>
 				</field>
-				<field id="template" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+				<field id="template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
 					<label>Admin Notify Template</label>
 					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
 					<depends>

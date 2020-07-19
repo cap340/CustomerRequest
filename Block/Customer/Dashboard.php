@@ -173,7 +173,7 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
                 $attributes = $productOptions['attributes_info'];
                 $data[$key] = [
                     'sku' => $productOptions['simple_sku'],
-                    'fullName' => $productOptions['simple_name'],
+                    'child' => $productOptions['simple_name'],
                     'name' => $item->getName(), // configurable name
                 ];
 
@@ -193,6 +193,14 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
         }
 
         return $data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormKey()
+    {
+        return $this->helper->getFormKey();
     }
 
     /**
@@ -221,5 +229,29 @@ class Dashboard extends \Magento\Customer\Block\Account\Dashboard
     public function getStatusLabel($option)
     {
         return $this->listStatus->toOptionArray()[$option]['label'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRmaConditionsLink()
+    {
+        return $this->helper->getRmaConditionsLink();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRmaPopupMessage()
+    {
+        return $this->helper->getRmaPopupMessage();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRmaRequestEnabled()
+    {
+        return $this->helper->isRmaRequestEnabled();
     }
 }

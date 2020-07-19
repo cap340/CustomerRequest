@@ -22,6 +22,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     const XML_PATH_RMA_REQUEST_ENABLED = 'cap_customer_request/rma/enable';
     const XML_PATH_RMA_CONDITIONS_LINK = 'cap_customer_request/rma/conditions_link';
     const XML_PATH_RMA_ALLOWED_STATUS = 'cap_customer_request/rma/allowed_orders';
+    const XML_PATH_RMA_POPUP_MESSAGE = 'cap_customer_request/rma/popup_message';
 
     /**
      * @var \Magento\Framework\Data\Form\FormKey
@@ -74,10 +75,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $this->imageFactory = $imageFactory;
         parent::__construct($context);
     }
-
-    /**
-     * Config values
-     */
 
     /**
      * @return bool
@@ -146,8 +143,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Product
+     * @return mixed
      */
+    public function getRmaPopupMessage()
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_RMA_POPUP_MESSAGE,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
 
     /**
      * @return array
@@ -201,10 +205,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $this->_urlBuilder->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . $destDir . $imagePath;
     }
-
-    /**
-     * Form
-     */
 
     /**
      * @return string

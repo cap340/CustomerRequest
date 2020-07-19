@@ -85,6 +85,14 @@ class View extends \Magento\Catalog\Block\Product\View
     /**
      * @return string
      */
+    public function getFormKey()
+    {
+        return $this->helper->getFormKey();
+    }
+
+    /**
+     * @return string
+     */
     public function getFormAction()
     {
         return '/cap_customer_request/product/stockrequestform';
@@ -148,6 +156,14 @@ class View extends \Magento\Catalog\Block\Product\View
     private function getProductChildren()
     {
         return $this->getProduct()->getTypeInstance()->getUsedProducts($this->getProduct());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStockComment()
+    {
+        return $this->helper->getStockComment();
     }
 
     /**

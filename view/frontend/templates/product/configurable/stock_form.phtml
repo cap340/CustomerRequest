@@ -15,8 +15,6 @@
  */
 ?>
 
-<?php $helper = $this->helper('Cap\CustomerRequest\Helper\Data'); ?>
-
 <div data-role="stock-request-modal-content">
     <form id="stock-request-form"
           action="<?php echo $block->getFormAction() ?>"
@@ -24,7 +22,7 @@
           data-mage-init='{"validation":{}}'
           data-role="stock-request-form">
         <fieldset class="fieldset create stock-request">
-            <input name="form_key" type="hidden" value="<?php echo $helper->getFormKey();?>">
+            <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
             <legend class="legend">
                 <span><?php echo __('Request: ') ?></span>
                 <strong><?php /* @escapeNotVerified */ echo $block->getProduct()->getName() ?></strong>
@@ -59,7 +57,7 @@
                                 autocomplete="off"
                                 aria-required="true">
                             <option value><?php echo __('Please select an option') ?></option>
-                            <?php foreach ($this->getConfigurableAttributeOptions($attribute) as $optionId => $option): ?>
+                            <?php foreach ($block->getConfigurableAttributeOptions($attribute) as $optionId => $option): ?>
                                 <option value='<?php echo json_encode($option['product_ids']) ?>'
                                         data-product-ids='<?php echo json_encode($option['product_ids']) ?>'>
                                     <?php echo $option['label'] ?>
@@ -83,7 +81,7 @@
                           data-validate="{
                           required:true,
                           'min-words':3
-                          }"><?php echo $helper->getStockComment(); ?></textarea>
+                          }"><?php echo $block->getStockComment(); ?></textarea>
                 </div>
             </div>
 
@@ -96,10 +94,8 @@
     require([
         'jquery',
         'underscore',
-        'mage/storage',
-        'Magento_Ui/js/modal/modal',
-        'Magento_Ui/js/modal/alert'
-    ], function ($, _, storage, modal, alert) {
+        'Magento_Ui/js/modal/modal'
+    ], function ($, _, modal) {
         var formPopup = $('[data-role="stock-request-modal-content"]').modal(getPopupOptions()),
             form = $('[data-role="stock-request-form"]'),
             optionSelects = $('[data-role="stock-request-option"]');
